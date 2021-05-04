@@ -1,38 +1,49 @@
-.App {
-  text-align: center;
+.grid-container{
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 100px 30px auto;
+  grid-template-areas:
+    "header-1 header-2"
+    "progress-bar progress-bar"
+    "body-1 body-2";
+
+
+  /* TESTING */
+  background-color: black;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+/* playlist layout */
+.playlists-header {
+  grid-area: header-2;
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  background-color: blue;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.playlists-body {
+  grid-area: body-2;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+
+  background-color: blueviolet;
 }
 
-.App-link {
-  color: #61dafb;
+/* songs layout */
+.songs-header {
+  grid-area: header-1;
+
+  background-color: black;
+}
+.songs-body{
+  grid-area: body-1;
+
+  background-color:brown
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.progress-bar {
+  grid-area: progress-bar;
+
+  background-color: aqua;
 }
