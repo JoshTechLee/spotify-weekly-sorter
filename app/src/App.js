@@ -20,11 +20,6 @@ function App() {
             <div className="playlists-body">I am playlist body</div>
             <div className="progress-bar"></div>
             <div className="songs-body"></div>
-            {/* <header className="App-header">
-                <h1>Counter: {counter}</h1>
-                <button onClick={() => dispatch({ type: 'INCREMENT' })}>increment</button>
-                <button onClick={() => dispatch({ type: 'DECREMENT' })}>decrement</button>
-            </header> */}
         </div>
     );
 }
