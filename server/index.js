@@ -32,13 +32,14 @@ app.get('/callback', function (req, res) {
         headers: {
             Authorization:
                 'Basic ' +
-                (process.env.SPOTIFY_CLIENT_ID + ':' + process.env.SPOTIFY_CLIENT_SECRET).toString(
-                    'base64'
-                ),
+                Buffer.from(
+                    process.env.SPOTIFY_CLIENT_ID + ':' + process.env.SPOTIFY_CLIENT_SECRET
+                ).toString('base64'),
         },
         json: true,
     };
     request.post(authOptions, (error, response, body) => {
+        console.log(body);
         const access_token = body.access_token;
         const uri = process.env.CLIENT_URI || 'http://localhost:3000';
         res.redirect(uri + '?access_token=' + access_token);
