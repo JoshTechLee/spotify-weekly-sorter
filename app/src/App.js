@@ -11,6 +11,7 @@ import {
     useHistory,
     useLocation,
 } from 'react-router-dom';
+import LoadingPage from './components/loading_page/loading_page';
 
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -20,7 +21,7 @@ function App() {
         spotifyAuthorization({ code }).then((res) => console.log(res));
     };
 
-    return <MainPage />;
+    return <LoadingPage />;
 }
 
 export default App;

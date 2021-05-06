@@ -1,0 +1,32 @@
+.loading-page-container{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+}
+
+.loading-page-title-container{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading-page-title{
+    position: absolute;
+    text-align: center;
+    animation-name: cycleTitleOpacity;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes cycleTitleOpacity {
+    0% {color: rgba(255, 255, 255, 255)}
+    50% {color: rgba(255, 255, 255, 0)}
+    100% {color: rgba(255, 255, 255, 255)}
+}
