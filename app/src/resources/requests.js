@@ -1,14 +1,15 @@
-const codeChallenge = require('./helper').codeChallenge;
-const axios = require('axios');
+import { FETCH_SPOTIFY_USER_DATA, CHECK_IF_LOGGED_IN } from './constants';
+import axios from 'axios';
+const { ipcRenderer } = window.require('electron');
 
-export const spotifyAuthorization = ({ code }) => {
-    return axios.get('https://accounts.spotify.com/authorize', {
-        params: {
-            client_id: 'c419c7f3c20744ebac6f7ac1e019cdee',
-            response_type: 'code',
-            redirect_uri: 'http://localhost/callback/',
-            code_challenge_method: 'S256',
-            code_challenge: codeChallenge(code),
-        },
+export const fetchSpotifyUserData = () => (dispatch) => {
+    dispatch({ type: FETCH_SPOTIFY_USER_DATA.REQUEST });
+    ipcRenderer.send(CHECK_IF_LOGGED_IN);
+    ipcRenderer.once(CHECK_IF_LOGGED_IN, (_, data) => {
+        if (data) {
+            dispatch({ type: FETCH_SPOTIFY_USER_DATA.SUCCESS, payload: data });
+        } else {
+            dispatch({ type: FETCH_SPOTIFY_USER_DATA.FAILED, payload, data });
+        }
     });
 };
