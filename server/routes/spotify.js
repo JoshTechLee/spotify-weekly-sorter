@@ -6,9 +6,9 @@ const querystring = require('querystring');
 const app = express();
 
 const redirect_uri = process.env.SERVER_URI;
-const client_id = process.env.CLIENT_ID;
-const client_secret = process.env.CLIENT_SECRET;
 const client_uri = process.env.CLIENT_URI;
+const client_id = process.env.SPOTIFY_CLIENT_ID;
+const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 
 router.get('/login', (req, res) => {
     res.redirect(

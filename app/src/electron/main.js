@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { app, BrowserWindow } = require('electron');
 const isDev = require('electron-is-dev');
 const path = require('path');
@@ -8,7 +9,7 @@ const { ipcMain } = require('electron');
 const store = new Store();
 
 ipcMain.on('CHECK_IF_LOGGED_IN', (event, data) => {
-    console.log('whatwhat');
+    console.log(process.env.REACT_APP_SERVER_ADDRESS);
     const yummy = store.get('yummy');
     store.set('yummy', data);
     console.log(yummy);
