@@ -15,7 +15,8 @@ import { useSelector, useDispatch } from 'react-redux';
 const { ipcRenderer } = window.require('electron');
 
 function App() {
-    const username = useSelector((state) => state.username);
+    const { isLoading } = useSelector((state) => ({ isLoading: state.nxd0 }));
+
     const dispatch = useDispatch();
 
     useEffect(() => {

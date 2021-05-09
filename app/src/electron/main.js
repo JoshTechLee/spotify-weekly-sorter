@@ -29,7 +29,7 @@ function createWindow() {
     // win.loadFile(path.join(__dirname, '..', 'src', 'index.js'));
     win.loadURL(
         isDev
-            ? DEV_CLIENT_URL
+            ? process.env.REACT_APP_DEV_CLIENT_ADDRESS
             : `file://${path.join(__dirname, '..', '..', 'public', 'build/index.html')}`
     );
     if (isDev) {

@@ -1,13 +1,15 @@
+import { FETCH_SPOTIFY_USER_DATA, CHECK_IF_LOGGED_IN } from '../resources/constants';
+
 const intialState = {
-    counter: 0,
+    isLoading: true,
 };
 
 function rootReducer(state = intialState, action) {
     switch (action.type) {
-        case 'INCREMENT':
-            return { counter: state.counter + 1 };
+        case FETCH_SPOTIFY_USER_DATA.REQUEST:
+            return { isLoading: true };
 
-        case 'DECREMENT':
+        case FETCH_:
             return { counter: state.counter - 1 };
 
         default:

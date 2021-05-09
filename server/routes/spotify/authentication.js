@@ -3,8 +3,6 @@ const router = express.Router();
 const request = require('request');
 const querystring = require('querystring');
 
-const app = express();
-
 const redirect_uri = process.env.SERVER_URI;
 const client_uri = process.env.CLIENT_URI;
 const client_id = process.env.SPOTIFY_CLIENT_ID;
@@ -22,7 +20,7 @@ router.get('/login', (req, res) => {
     );
 });
 
-router.get('/callback', function (req, res) {
+router.get('/callback', (req, res) => {
     const code = req.query.code || null;
     const authOptions = {
         url: 'https://accounts.spotify.com/api/token',
