@@ -5,7 +5,6 @@ const { SPOTIFY_API_URL, SPOTIFY_TOKEN_URL, SPOTIFY_AUTHORIZATION_STRING } = req
 
 exports.getSpotifyUserProfile = async ({ access_token }, callback) => {
     const headers = {
-        Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + access_token,
     };
@@ -14,7 +13,7 @@ exports.getSpotifyUserProfile = async ({ access_token }, callback) => {
         .then(callback)
         .catch((err) => {
             console.log('ERROR: getSpotifyUserProfile');
-            console.log(err.data);
+            console.log(err);
         });
 };
 
@@ -31,7 +30,7 @@ exports.getSpotifyAccessToken = async ({ refresh_token }, callback) => {
         .then(callback)
         .catch((err) => {
             console.log('ERROR: getSpotifyAccessToken');
-            console.log(err.data);
+            console.log(err);
         });
 };
 
@@ -51,6 +50,6 @@ exports.getSpotifyRefreshToken = async ({ code }, callback) => {
         .then(callback)
         .catch((err) => {
             console.log('ERROR: getSpotifyRefreshToken');
-            console.log(err.data);
+            console.log(err);
         });
 };

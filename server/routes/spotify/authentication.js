@@ -7,6 +7,9 @@ const { SPOTIFY_AUTHORIZATION_URL } = require('../../helpers/constants');
 const { getSpotifyUserProfile, getSpotifyRefreshToken } = require('../../helpers/requests');
 
 const User = require('../../model/user');
+const spotify_scope =
+    'user-read-private user-read-email playlist-read-private playlist-read-collaborative';
+// const spotify_scope = 'user-read-private user-read-email user-library-modify';
 
 router.get('/login', (req, res) => {
     res.redirect(
@@ -15,7 +18,7 @@ router.get('/login', (req, res) => {
             querystring.stringify({
                 response_type: 'code',
                 client_id: process.env.SPOTIFY_CLIENT_ID,
-                scope: 'user-read-private user-read-email',
+                scope: spotify_scope,
                 redirect_uri: process.env.SERVER_URI,
             })
     );
@@ -27,20 +30,25 @@ router.get('/callback', (req, res) => {
     getSpotifyRefreshToken({ code }, ({ data }) => {
         const { access_token, refresh_token } = data;
         getSpotifyUserProfile({ access_token }, ({ data }) => {
+            console.log('high ho ding ding');
             console.log(data);
-            const { _id } = { _id: data.uri };
-            const user_model_data = { _id, refresh_token, is_premium };
+            const user_model_data = {
+                _id: data.uri,
+                refresh_token,
+                is_premium: data.product == 'premium',
+            };
 
-            User.findByIdAndUpdate(_id, user_model_data, { upsert: true }, () => {
-                res.redirect(
-                    process.env.CLIENT_URI +
-                        '?' +
-                        querystring.stringify({
-                            user_data: data,
-                            access_token,
-                        })
-                );
+            User.findByIdAndUpdate(data.uri, user_model_data, { upsert: true }, () => {
+                console.log('save successful');
             });
+            res.redirect(
+                process.env.CLIENT_URI +
+                    '?' +
+                    querystring.stringify({
+                        user_data: data,
+                        access_token,
+                    })
+            );
         });
     });
 });

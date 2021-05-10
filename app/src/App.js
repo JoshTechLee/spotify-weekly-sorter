@@ -20,6 +20,7 @@ function App() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        console.log(window.location.href);
         ipcRenderer.on('VERIFY_SPOTIFY_LOGIN', (event, data) => {
             if (!data) {
                 dispatch({ type: 'UPDATE_USERNAME', payload: data.username });
@@ -38,6 +39,7 @@ export default App;
 
 const MainPage = () => {
     const talkToElectron = () => {
+        console.log(window.location.href);
         ipcRenderer.send('CHECK_IF_LOGGED_IN', 'what what');
     };
 
