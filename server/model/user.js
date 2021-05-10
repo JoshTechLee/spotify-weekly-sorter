@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const user = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     _id: String,
     last_song_id: String,
     refresh_token: String,
@@ -8,6 +8,6 @@ const user = new mongoose.Schema({
     devices: [{ ID: String }],
 });
 
-const User = mongoose.model('User', user);
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;

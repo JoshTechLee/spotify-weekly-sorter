@@ -41,19 +41,30 @@ router.get('/callback', (req, res) => {
         json: true,
     };
     request.post(authOptions, (error, response, body) => {
-        const access_token = body.access_token;
-        console.log(body);
-        console.log('hhehehehflkfhjlkjeflkjasfkljalksejflkjlkjlkeje');
-        getSpotifyUserProfile({ access_token }).then((user) =>
+        const { access_token, refresh_token, is_premium } = {
+            access_token: body.access_token,
+            refresh_token: body.refresh_token,
+            is_premium: body.premium == 'premium',
+        };
+
+        getSpotifyUserProfile({ access_token }).then((data) => {
+            const { _id } = { _id: data.uri };
+            const user = new User({ _id, refresh_token, is_premium });
+
+            // User.findOneAndUpdate(_id, user, { upsert: true });
+            user.save((_id, user) => {
+                console.log('saved');
+            });
+
             res.redirect(
                 client_uri +
                     '?' +
                     querystring.stringify({
-                        user,
+                        user_data: data,
                         access_token,
                     })
-            )
-        );
+            );
+        });
     });
 });
 
