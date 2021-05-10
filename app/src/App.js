@@ -1,6 +1,6 @@
 import './App.css';
 import SearchBox from './components/search_box/SearchBox';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 // import {
 //     BrowserRouter as Router,
 //     Switch,
@@ -15,7 +15,7 @@ import { useSelector, useDispatch } from 'react-redux';
 const { ipcRenderer } = window.require('electron');
 
 function App() {
-    const { isLoading } = useSelector((state) => ({ isLoading: state.nxd0 }));
+    // const { isLoading } = useSelector((state) => ({ isLoading: state.nxd0 }));
 
     const dispatch = useDispatch();
 
