@@ -8,13 +8,13 @@ const { ipcMain } = require('electron');
 
 const store = new Store();
 
-ipcMain.on('CHECK_IF_LOGGED_IN', (event, data) => {
+ipcMain.on('GET_SPOTIFY_ID', (event, data) => {
     console.log(process.env.REACT_APP_SERVER_ADDRESS);
     console.log(data);
     // const yummy = store.get('yummy');
     // store.set('yummy', data);
     // console.log(yummy);
-    event.reply('CHECK_IF_LOGGED_IN', 'yum yum, ding dong');
+    event.reply('GET_SPOTIFY_ID', 'yum yum, ding dong');
 });
 
 function createWindow() {

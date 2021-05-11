@@ -1,9 +1,12 @@
-const getAccessToken = (payload) => ({ type: 'GET_ACCESS_TOKEN', payload });
+const getSpotifyAccessToken = (payload) => ({ type: 'GET_ACCESS_TOKEN', payload });
+const saveAccessToken = (payload) => ({ type: 'SAVE_ACCESS_TOKEN', payload });
+
 const loginToSpotify = () => ({ type: 'LOGIN_TO_SPOTIFY' });
 
 const action = {
-    getAccessToken,
+    getSpotifyAccessToken,
     loginToSpotify,
+    saveAccessToken,
 };
 
 export default action;

@@ -1,8 +1,8 @@
 const { ipcRenderer } = window.require('electron');
 
 const checkIfLoggedIn = (callback) => {
-    ipcRenderer.send('CHECK_IF_LOGGED_IN');
-    ipcRenderer.once('CHECK_IF_LOGGED_IN', callback);
+    ipcRenderer.send('GET_SPOTIFY_ID');
+    return ipcRenderer.once('GET_SPOTIFY_ID', callback);
 };
 
 const ipc = {
