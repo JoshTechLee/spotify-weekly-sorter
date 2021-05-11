@@ -1,18 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const querystring = require('querystring');
-const axios = require('axios');
 
 const { SPOTIFY_AUTHORIZATION_URL } = require('../../helpers/constants');
 const { getSpotifyRefreshToken, getSpotifyAccessToken } = require('../../helpers/requests/tokens');
 const { getSpotifyUserProfile } = require('../../helpers/requests/api');
-
 const User = require('../../model/user');
-const spotify_scope =
-    'user-read-private user-read-email playlist-read-private playlist-read-collaborative';
-// const spotify_scope = 'user-read-private user-read-email user-library-modify';
 
-router.get('/login', (req, res) => {
+const spotify_scope = 'user-read-private user-read-email playlist-read-private';
+
+router.get('/login', (_, res) => {
     res.redirect(
         SPOTIFY_AUTHORIZATION_URL +
             '?' +
@@ -25,25 +22,30 @@ router.get('/login', (req, res) => {
     );
 });
 
-//
 router.get('/callback', async (req, res) => {
     const code = req.query.code || null;
     const { access_token, refresh_token } = await getSpotifyRefreshToken({ code }, ({ data }) => {
         return { access_token: data.access_token, refresh_token: data.refresh_token };
     });
-    const { _id, is_premium } = await getSpotifyUserProfile({ access_token }, ({ data }) => {
-        console.log('high ho ding ding');
-        console.log(data);
-        return { _id: data.uri, is_premium: data.product == 'premium' };
+    const user = await getSpotifyUserProfile({ access_token }, ({ data }) => {
+        const data = {
+            id: data.uri,
+            display_name: data.display_name,
+            is_premium: data.product == 'premium',
+            image: data.images[0].url,
+        };
+        return data;
     });
-    User.findByIdAndUpdate(_id, { _id, refresh_token, is_premium }, { upsert: true }, () => {
-        console.log('save successful');
-    });
+    const user = User.findByIdAndUpdate(
+        user.id,
+        { _id: user.id, refresh_token, is_premium: user.is_premium },
+        { upsert: true }
+    );
     res.redirect(
         process.env.CLIENT_URI +
             '?' +
             querystring.stringify({
-                // user_data: data,
+                user,
                 access_token,
             })
     );
@@ -56,10 +58,10 @@ router.get('/token', async (req, res) => {
         .then((data) => {
             return data.refresh_token;
         });
-    // console.log(refresh_token);
-    getSpotifyAccessToken({ refresh_token }, (data) => {
-        res.send(refresh_token);
+    const { access_token } = await getSpotifyAccessToken({ refresh_token }, ({ data }) => {
+        return { access_token: data.access_token };
     });
+    res.send({ access_token });
 });
 
 module.exports = router;

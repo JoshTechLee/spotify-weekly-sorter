@@ -21,11 +21,15 @@ function App() {
 
     useEffect(() => {
         console.log(window.location.href);
-        ipcRenderer.on('VERIFY_SPOTIFY_LOGIN', (event, data) => {
-            if (!data) {
-                dispatch({ type: 'UPDATE_USERNAME', payload: data.username });
-            }
+        ipcRenderer.send('CHECK_IF_LOGGED_IN', 'what what');
+        ipcRenderer.on('CHECK_IF_LOGGED_IN', (event, data) => {
+            console.log(data);
         });
+        // ipcRenderer.on('VERIFY_SPOTIFY_LOGIN', (event, data) => {
+        // if (!data) {
+        //     dispatch({ type: 'UPDATE_USERNAME', payload: data.username });
+        // }
+        // });
     }, [dispatch]);
 
     return <MainPage />;
@@ -38,11 +42,6 @@ export default App;
 // };
 
 const MainPage = () => {
-    const talkToElectron = () => {
-        console.log(window.location.href);
-        ipcRenderer.send('CHECK_IF_LOGGED_IN', 'what what');
-    };
-
     return (
         <div className="App grid-container">
             <div className="playlists-header">
@@ -54,7 +53,7 @@ const MainPage = () => {
                 <a href={process.env.REACT_APP_SERVER_ADDRESS + '/spotify/login'}>Login</a>
             </div>
             <div className="songs-body">
-                <button onClick={talkToElectron}>NOOT NOOT</button>
+                <button onClick={() => {}}>NOOT NOOT</button>
             </div>
         </div>
     );
