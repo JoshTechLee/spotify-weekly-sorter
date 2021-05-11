@@ -6,6 +6,7 @@ const app = express();
 const port = process.env.PORT;
 
 connectToMongoDB();
+app.use(express.json());
 app.use('/spotify', require('./routes/spotify/authentication'));
 
 console.log('running on port' + port);

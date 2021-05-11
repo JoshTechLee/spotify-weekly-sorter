@@ -4,7 +4,8 @@ const querystring = require('querystring');
 const axios = require('axios');
 
 const { SPOTIFY_AUTHORIZATION_URL } = require('../../helpers/constants');
-const { getSpotifyUserProfile, getSpotifyRefreshToken } = require('../../helpers/requests');
+const { getSpotifyRefreshToken, getSpotifyAccessToken } = require('../../helpers/requests/tokens');
+const { getSpotifyUserProfile } = require('../../helpers/requests/api');
 
 const User = require('../../model/user');
 const spotify_scope =
@@ -25,31 +26,39 @@ router.get('/login', (req, res) => {
 });
 
 //
-router.get('/callback', (req, res) => {
+router.get('/callback', async (req, res) => {
     const code = req.query.code || null;
-    getSpotifyRefreshToken({ code }, ({ data }) => {
-        const { access_token, refresh_token } = data;
-        getSpotifyUserProfile({ access_token }, ({ data }) => {
-            console.log('high ho ding ding');
-            console.log(data);
-            const user_model_data = {
-                _id: data.uri,
-                refresh_token,
-                is_premium: data.product == 'premium',
-            };
+    const { access_token, refresh_token } = await getSpotifyRefreshToken({ code }, ({ data }) => {
+        return { access_token: data.access_token, refresh_token: data.refresh_token };
+    });
+    const { _id, is_premium } = await getSpotifyUserProfile({ access_token }, ({ data }) => {
+        console.log('high ho ding ding');
+        console.log(data);
+        return { _id: data.uri, is_premium: data.product == 'premium' };
+    });
+    User.findByIdAndUpdate(_id, { _id, refresh_token, is_premium }, { upsert: true }, () => {
+        console.log('save successful');
+    });
+    res.redirect(
+        process.env.CLIENT_URI +
+            '?' +
+            querystring.stringify({
+                // user_data: data,
+                access_token,
+            })
+    );
+});
 
-            User.findByIdAndUpdate(data.uri, user_model_data, { upsert: true }, () => {
-                console.log('save successful');
-            });
-            res.redirect(
-                process.env.CLIENT_URI +
-                    '?' +
-                    querystring.stringify({
-                        user_data: data,
-                        access_token,
-                    })
-            );
+router.get('/token', async (req, res) => {
+    const spotify_id = req.body.spotify_id;
+    const refresh_token = await User.findById(spotify_id, 'refresh_token')
+        .limit(1)
+        .then((data) => {
+            return data.refresh_token;
         });
+    // console.log(refresh_token);
+    getSpotifyAccessToken({ refresh_token }, (data) => {
+        res.send(refresh_token);
     });
 });
 
