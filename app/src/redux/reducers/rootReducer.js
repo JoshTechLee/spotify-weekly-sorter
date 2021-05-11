@@ -1,4 +1,4 @@
-import { FETCH_SPOTIFY_USER_DATA, CHECK_IF_LOGGED_IN } from '../resources/constants';
+import { FETCH_SPOTIFY_USER_DATA } from '../../resources/constants';
 
 const intialState = {
     isLoading: true,

@@ -1,5 +1,3 @@
-import './App.css';
-import SearchBox from './components/search_box/SearchBox';
 import React, { useState, useEffect } from 'react';
 // import {
 //     BrowserRouter as Router,
@@ -10,51 +8,36 @@ import React, { useState, useEffect } from 'react';
 //     useHistory,
 //     useLocation,
 // } from 'react-router-dom';
-import LoadingPage from './components/loading_page/loading_page';
+import LoadingPage from './components/loading_page/LoadingPage';
+import MainPage from './components/MainPage';
 import { useSelector, useDispatch } from 'react-redux';
-const { ipcRenderer } = window.require('electron');
+import ipc from './electron/ipc';
 
 function App() {
-    // const { isLoading } = useSelector((state) => ({ isLoading: state.nxd0 }));
-
+    const { accessToken, isLoading } = useSelector((state) => ({
+        accessToken: state.accessToken,
+        isLoading: state.isLoading,
+    }));
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log(window.location.href);
-        ipcRenderer.send('CHECK_IF_LOGGED_IN', 'what what');
-        ipcRenderer.on('CHECK_IF_LOGGED_IN', (event, data) => {
-            console.log(data);
-        });
-        // ipcRenderer.on('VERIFY_SPOTIFY_LOGIN', (event, data) => {
-        // if (!data) {
-        //     dispatch({ type: 'UPDATE_USERNAME', payload: data.username });
-        // }
-        // });
+        const params = new URLSearchParams(window.location.search);
+        const paramAccessToken = params.get('access_token');
+        if (!accessToken && !paramAccessToken) {
+            ipc.checkIfLoggedIn((_, data) => {
+                if (data.spotifyId) {
+                    dispatch({ type: 'GET_ACCESS_TOKEN', payload: data.spotifyId });
+                } else {
+                    dispatch({ type: 'LOGIN_TO_SPOTIFY' });
+                }
+            });
+        } else if (!accessToken) {
+            dispatch({ type: 'SAVE_ACCESS_TOKEN', payload: paramAccessToken });
+        }
     }, [dispatch]);
 
-    return <MainPage />;
+    if (isLoading) return <LoadingPage />;
+    else return <MainPage />;
 }
 
 export default App;
-
-// const SpotifyLoginRoute = () => {
-//     return <Route />;
-// };
-
-const MainPage = () => {
-    return (
-        <div className="App grid-container">
-            <div className="playlists-header">
-                <SearchBox />
-            </div>
-            <div className="songs-header">I am song header</div>
-            <div className="playlists-body">I am playlist body</div>
-            <div className="progress-bar">
-                <a href={process.env.REACT_APP_SERVER_ADDRESS + '/spotify/login'}>Login</a>
-            </div>
-            <div className="songs-body">
-                <button onClick={() => {}}>NOOT NOOT</button>
-            </div>
-        </div>
-    );
-};
