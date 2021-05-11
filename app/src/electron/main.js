@@ -8,13 +8,15 @@ const { ipcMain } = require('electron');
 
 const store = new Store();
 
-ipcMain.on('GET_SPOTIFY_ID', (event, data) => {
-    console.log(process.env.REACT_APP_SERVER_ADDRESS);
-    console.log(data);
-    // const yummy = store.get('yummy');
-    // store.set('yummy', data);
-    // console.log(yummy);
-    event.reply('GET_SPOTIFY_ID', 'yum yum, ding dong');
+ipcMain.on('GET_SPOTIFY_ID', (event, _) => {
+    const spotifyId = store.get('spotifyId');
+    console.log('woah woah, we got ' + spotifyId);
+    event.reply('GET_SPOTIFY_ID', { spotifyId });
+});
+
+ipcMain.on('SAVE_SPOTIFY_ID', (_, data) => {
+    console.log('hey hey, we saving ' + data.spotifyId);
+    store.set('spotifyId', data.spotifyId);
 });
 
 function createWindow() {

@@ -1,12 +1,17 @@
 const { ipcRenderer } = window.require('electron');
 
-const checkIfLoggedIn = (callback) => {
+const getSpotifyId = (callback) => {
     ipcRenderer.send('GET_SPOTIFY_ID');
-    return ipcRenderer.once('GET_SPOTIFY_ID', callback);
+    ipcRenderer.once('GET_SPOTIFY_ID', callback);
+};
+
+const setSpotifyId = (data, callback = null) => {
+    ipcRenderer.send('SAVE_SPOTIFY_ID', data);
 };
 
 const ipc = {
-    checkIfLoggedIn,
+    getSpotifyId,
+    setSpotifyId,
 };
 
 export default ipc;

@@ -15,16 +15,19 @@ import actions from './redux/actions/actions';
 import ipc from './electron/ipc';
 
 function App() {
+    const dispatch = useDispatch();
+
     const { accessToken, isLoading } = useSelector((state) => ({
         accessToken: state.accessToken,
         isLoading: state.isLoading,
     }));
-    const dispatch = useDispatch();
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
         const paramAccessToken = params.get('access_token');
-        const { spotifyId } = ipc.checkIfLoggedIn((_, data) => data.spotifyId);
+        let spotifyId;
+        ipc.setSpotifyId({ spotifyId: 'welkfjlkdjflj' });
+        ipc.getSpotifyId((_, data) => (spotifyId = data.spotifyId));
 
         if (!spotifyId) {
             dispatch(actions.loginToSpotify());
@@ -35,8 +38,10 @@ function App() {
         }
     }, [dispatch]);
 
-    if (isLoading) return <LoadingPage />;
-    else return <MainPage />;
+    // if (isLoading) return <LoadingPage />;
+    // else return <MainPage />;
+
+    return <MainPage />;
 }
 
 export default App;
