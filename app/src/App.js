@@ -11,6 +11,7 @@ import React, { useState, useEffect } from 'react';
 import LoadingPage from './components/loading_page/LoadingPage';
 import MainPage from './components/MainPage';
 import { useSelector, useDispatch } from 'react-redux';
+import { SPOTIFY_URL } from './resources/constants';
 import actions from './redux/actions/actions';
 import ipc from './electron/ipc';
 
@@ -22,25 +23,34 @@ function App() {
         isLoading: state.isLoading,
     }));
 
-    useEffect(() => {
-        const params = new URLSearchParams(window.location.search);
-        const paramAccessToken = params.get('access_token');
-        let spotifyId;
-        ipc.setSpotifyId({ spotifyId: 'welkfjlkdjflj' });
-        ipc.getSpotifyId((_, data) => (spotifyId = data.spotifyId));
+    // useEffect(() => {
+    //     const params = new URLSearchParams(window.location.search);
+    //     const paramAccessToken = params.get('access_token');
+    //     let spotifyId;
+    //     ipc.getSpotifyId((_, data) => (spotifyId = data.spotifyId));
 
-        if (!spotifyId) {
-            dispatch(actions.loginToSpotify());
-        } else if (!accessToken && !paramAccessToken) {
-            dispatch(actions.getSpotifyAccessToken(spotifyId));
-        } else if (!accessToken) {
-            dispatch(actions.saveAccessToken(paramAccessToken));
-        }
-    }, [dispatch]);
+    //     if (!spotifyId) {
+    //         window.location.href = SPOTIFY_URL.REDIRECT;
+    //     } else if (!accessToken && !paramAccessToken) {
+    //         dispatch(actions.getSpotifyAccessToken.request({ spotifyId }));
+    //     } else if (!accessToken) {
+    //         dispatch(actions.saveSpotifyAccessToken({ accessToken: paramAccessToken }));
+    //     }
+    // }, [dispatch]);
+
+    const testButton = () => {
+        console.log('button clicked!');
+        dispatch(
+            actions.getSpotifyAccessToken.request({
+                spotifyId: 'spotify:user:21qne2mcji3tafrotvafjqrry',
+            })
+        );
+    };
 
     // if (isLoading) return <LoadingPage />;
     // else return <MainPage />;
 
+    return <button onClick={testButton}>Test Button</button>;
     return <MainPage />;
 }
 

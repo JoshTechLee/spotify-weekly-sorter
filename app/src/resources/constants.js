@@ -7,3 +7,8 @@ export const FETCH_SPOTIFY_USER_DATA = {
     SUCCESS: 'FETCH_SPOTIFY_USER_DATA_SUCCESS',
     FAILED: 'FETCH_SPOTIFY_USER_DATA_FAILED',
 };
+
+export const SPOTIFY_URL = {
+    LOGIN: process.env.REACT_APP_SERVER_ADDRESS + '/spotify/login',
+    ACCESS_TOKEN: process.env.REACT_APP_SERVER_ADDRESS + '/spotify/token',
+};

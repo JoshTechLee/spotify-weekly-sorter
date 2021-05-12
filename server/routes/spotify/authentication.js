@@ -28,15 +28,15 @@ router.get('/callback', async (req, res) => {
         return { access_token: data.access_token, refresh_token: data.refresh_token };
     });
     const user = await getSpotifyUserProfile({ access_token }, ({ data }) => {
-        const data = {
+        const new_user = {
             id: data.uri,
             display_name: data.display_name,
             is_premium: data.product == 'premium',
             image: data.images[0].url,
         };
-        return data;
+        return new_user;
     });
-    const user = User.findByIdAndUpdate(
+    User.findByIdAndUpdate(
         user.id,
         { _id: user.id, refresh_token, is_premium: user.is_premium },
         { upsert: true }
@@ -52,16 +52,19 @@ router.get('/callback', async (req, res) => {
 });
 
 router.get('/token', async (req, res) => {
-    const spotify_id = req.body.spotify_id;
-    const refresh_token = await User.findById(spotify_id, 'refresh_token')
-        .limit(1)
-        .then((data) => {
-            return data.refresh_token;
-        });
-    const { access_token } = await getSpotifyAccessToken({ refresh_token }, ({ data }) => {
-        return { access_token: data.access_token };
-    });
-    res.send({ access_token });
+    console.log(req.body);
+    console.log(req.params);
+    // const spotify_id = req.body.spotify_id;
+    // const refresh_token = await User.findById(spotify_id, 'refresh_token')
+    //     .limit(1)
+    //     .then((data) => {
+    //         return data.refresh_token;
+    //     });
+    // const { access_token } = await getSpotifyAccessToken({ refresh_token }, ({ data }) => {
+    //     return { access_token: data.access_token };
+    // });
+    // res.send({ access_token });
+    res.send(req.body);
 });
 
 module.exports = router;
