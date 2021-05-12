@@ -3,11 +3,11 @@
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 100px 30px auto;
+  grid-template-rows: 100px auto 80px;
   grid-template-areas:
     "header-1 header-2"
-    "progress-bar progress-bar"
-    "body-1 body-2";
+    "body-1 body-2"
+    "footer footer";
 
 
   /* TESTING */
@@ -15,12 +15,12 @@
 }
 
 /* playlist layout */
-.playlists-header {
+.playlists-header-grid-container {
   grid-area: header-2;
 
   background-color: blue;
 }
-.playlists-body {
+.playlists-body-grid-container {
   grid-area: body-2;
   display: flex;
   flex-wrap: wrap;
@@ -31,19 +31,19 @@
 }
 
 /* songs layout */
-.songs-header {
+.songs-header-grid-container {
   grid-area: header-1;
 
   background-color: black;
 }
-.songs-body{
+.songs-body-grid-container{
   grid-area: body-1;
 
   background-color:brown
 }
 
-.progress-bar {
-  grid-area: progress-bar;
+.player-grid-container {
+  grid-area: footer;
 
   background-color: aqua;
 }

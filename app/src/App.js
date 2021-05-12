@@ -52,7 +52,7 @@ function App() {
     // if (isLoading) return <LoadingPage />;
     // else return <MainPage />;
 
-    return <button onClick={testButton}>Test Button</button>;
+    // return <button onClick={testButton}>Test Button</button>;
     return <MainPage />;
 }
 
