@@ -52,19 +52,16 @@ router.get('/callback', async (req, res) => {
 });
 
 router.get('/token', async (req, res) => {
-    console.log(req.body);
-    console.log(req.params);
-    // const spotify_id = req.body.spotify_id;
-    // const refresh_token = await User.findById(spotify_id, 'refresh_token')
-    //     .limit(1)
-    //     .then((data) => {
-    //         return data.refresh_token;
-    //     });
-    // const { access_token } = await getSpotifyAccessToken({ refresh_token }, ({ data }) => {
-    //     return { access_token: data.access_token };
-    // });
-    // res.send({ access_token });
-    res.send(req.body);
+    const spotify_id = req.query.spotify_id;
+    const refresh_token = await User.findById(spotify_id, 'refresh_token')
+        .limit(1)
+        .then((data) => {
+            return data.refresh_token;
+        });
+    const { access_token } = await getSpotifyAccessToken({ refresh_token }, ({ data }) => {
+        return { access_token: data.access_token };
+    });
+    res.send({ access_token });
 });
 
 module.exports = router;

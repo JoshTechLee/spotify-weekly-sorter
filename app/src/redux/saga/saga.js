@@ -12,19 +12,13 @@ const api = ({ url, payload }) => {
 };
 
 function* fetchSpotifyAccessToken(action) {
-    console.log('we reaching here boys');
-    console.log(action.spotifyId);
     try {
         const accessToken = yield call(api, {
             url: SPOTIFY_URL.ACCESS_TOKEN,
             payload: { spotify_id: action.spotifyId },
         });
-        console.log('but do we reach here?');
-        console.log(accessToken);
         yield put(actions.getSpotifyAccessToken.success({ accessToken }));
     } catch (err) {
-        console.log('we got an error yo');
-        console.log(err.message);
         yield put(actions.getSpotifyAccessToken.failure({ message: err.message }));
     }
 }
