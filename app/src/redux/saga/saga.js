@@ -5,10 +5,8 @@ import axios from 'axios';
 import { SPOTIFY_URL } from '../../resources/constants';
 import actions from '../../redux/actions/actions';
 
-const headers = { 'Content-Type': 'application/json' };
-
 const api = ({ url, payload }) => {
-    return axios.get(url, { params: payload }, { headers });
+    return axios.get(url, { params: payload });
 };
 
 function* fetchSpotifyAccessToken(action) {

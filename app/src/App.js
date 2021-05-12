@@ -23,20 +23,22 @@ function App() {
         isLoading: state.isLoading,
     }));
 
-    // useEffect(() => {
-    //     const params = new URLSearchParams(window.location.search);
-    //     const paramAccessToken = params.get('access_token');
-    //     let spotifyId;
-    //     ipc.getSpotifyId((_, data) => (spotifyId = data.spotifyId));
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const paramAccessToken = params.get('access_token');
+        let spotifyId;
+        ipc.getSpotifyId((_, data) => (spotifyId = data.spotifyId));
 
-    //     if (!spotifyId) {
-    //         window.location.href = SPOTIFY_URL.REDIRECT;
-    //     } else if (!accessToken && !paramAccessToken) {
-    //         dispatch(actions.getSpotifyAccessToken.request({ spotifyId }));
-    //     } else if (!accessToken) {
-    //         dispatch(actions.saveSpotifyAccessToken({ accessToken: paramAccessToken }));
-    //     }
-    // }, [dispatch]);
+        console.log(paramAccessToken);
+
+        if (!spotifyId && !accessToken && !paramAccessToken) {
+            window.location.href = SPOTIFY_URL.LOGIN;
+        } else if (!accessToken && !paramAccessToken) {
+            dispatch(actions.getSpotifyAccessToken.request({ spotifyId }));
+        } else if (!accessToken) {
+            dispatch(actions.saveSpotifyAccessToken({ accessToken: paramAccessToken }));
+        }
+    }, [dispatch]);
 
     const testButton = () => {
         console.log('button clicked!');
