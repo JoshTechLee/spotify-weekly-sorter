@@ -1,12 +1,13 @@
+import './playerSong.scss';
 import React from 'react';
 
-const PlayerSong = ({ img, title, artists }) => {
+const PlayerSong = ({ song: { img, title, artists } }) => {
     return (
-        <div>
+        <div className="player-song-container">
             <img className="player-song-image" src={img} alt="temp" />
-            <div className="player-song-info">
-                <h3 className="song-title">{title}</h3>
-                <p className="song-artist">{artists}</p>
+            <div className="player-song-info-container">
+                <h4 className="player-song-info song-title">{title}</h4>
+                <p className="player-song-info song-artist">{artists}</p>
             </div>
         </div>
     );

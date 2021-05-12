@@ -9,17 +9,16 @@ const Player = () => {
         title: 'some random name',
         artists: 'some random artist',
     };
+
     return (
         <div className="player-container">
             <div className="player-song-container">
                 <Song song={tempSong} />
             </div>
             <div className="player-song-controls-container">
-                <SongControls seek={} isPlaying={} />
+                <SongControls seek={70} isPlaying={false} />
             </div>
-            <div className="player-controls-container">
-                <PlayerControls />
-            </div>
+            <div className="player-controls-container">{/* <PlayerControls /> */}</div>
         </div>
     );
 };

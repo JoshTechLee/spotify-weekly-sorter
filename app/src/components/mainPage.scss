@@ -1,0 +1,50 @@
+.grid-container {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 100px auto 80px;
+    grid-template-areas:
+        'header-1 header-2'
+        'body-1 body-2'
+        'footer footer';
+
+    /* TESTING */
+    background-color: black;
+}
+
+.App {
+    /* playlist layout */
+    .playlists-header {
+        grid-area: header-2;
+
+        background-color: blue;
+    }
+    .playlists-body {
+        grid-area: body-2;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-content: flex-start;
+
+        background-color: blueviolet;
+    }
+
+    /* songs layout */
+    .songs-header {
+        grid-area: header-1;
+
+        background-color: black;
+    }
+    .songs-body {
+        grid-area: body-1;
+
+        background-color: brown;
+    }
+
+    .player {
+        grid-area: footer;
+
+        background-color: aqua;
+    }
+}

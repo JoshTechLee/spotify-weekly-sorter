@@ -1,0 +1,40 @@
+.player-song-container {
+    margin: 0px;
+    padding: 0px;
+    width: 250px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+
+    // REMOVE THIS
+    background-color: darkslategray;
+
+    .player-song-image {
+        margin: 0px 10px;
+        height: 55px;
+        width: 55px;
+    }
+
+    .player-song-info-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 80px;
+        overflow: hidden;
+        .player-song-info {
+            margin: 0;
+            height: 20px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        .song-title {
+            font-size: 15px;
+        }
+
+        .song-artist {
+            font-size: 12px;
+        }
+    }
+}
