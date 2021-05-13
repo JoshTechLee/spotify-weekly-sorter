@@ -1,24 +1,25 @@
+import './player.scss';
 import React from 'react';
 import Song from './song/PlayerSong';
-import SongControls from './song_controls/PlayerSongControls';
-import PlayerControls from './controls/PlayerControls';
+import Controls from './controls/PlayerControls';
+import Settings from './settings/Settings';
 
 const Player = () => {
     const tempSong = {
         img: 'https://i.scdn.co/image/89b92c6b59131776c0cd8e5df46301ffcf36ed69',
-        title: 'some random name',
+        title: 'some random nameaaasdfasdfasdfasdfasdfasdfasdfasdf',
         artists: 'some random artist',
     };
 
     return (
-        <div className="player-container">
-            <div className="player-song-container">
+        <div className="player-grid-container">
+            <div className="player-song-grid-container">
                 <Song song={tempSong} />
             </div>
-            <div className="player-song-controls-container">
-                <SongControls seek={70} isPlaying={false} />
+            <div className="player-controls-container">
+                <Controls seek={70} isPlaying={false} />
             </div>
-            <div className="player-controls-container">{/* <PlayerControls /> */}</div>
+            <div className="player-settings-container">{/* <PlayerControls /> */}</div>
         </div>
     );
 };
