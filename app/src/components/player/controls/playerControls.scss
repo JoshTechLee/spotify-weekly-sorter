@@ -1,18 +1,21 @@
 .player-controls-container {
     height: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
     .player-controls {
         height: auto;
         display: flex;
         flex-wrap: nowrap;
         justify-content: center;
+        align-items: center;
     }
     .player-controls > div {
         margin: 2px 2px;
     }
     .player-progress-bar {
-        margin: 7px 0px;
+        flex-grow: 1;
+        margin: 20px;
     }
 }
