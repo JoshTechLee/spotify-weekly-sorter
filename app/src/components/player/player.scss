@@ -4,7 +4,6 @@
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
-    background-color: green;
     .player-song-grid-container {
         width: 500px;
         min-width: 250px;
@@ -15,12 +14,10 @@
         width: 500px;
         min-width: 200px;
         height: 100%;
-        background-color: purple;
     }
     .player-settings-grid-container {
         width: 500px;
         min-width: 100px;
         height: 100%;
-        background-color: pink;
     }
 }

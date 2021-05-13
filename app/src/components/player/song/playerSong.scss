@@ -1,29 +1,23 @@
 .player-song-container {
-    margin: 0px;
-    padding: 0px;
+    height: 100%;
     display: flex;
     flex-wrap: nowrap;
     justify-content: flex-start;
     align-items: center;
 
-    // REMOVE THIS
-    background-color: darkslategray;
-
     .player-song-image {
-        margin: 0px 10px;
-        height: 55px;
-        width: 55px;
+        margin: 2px 5px;
+        height: 42px;
+        width: 42px;
     }
 
     .player-song-info-container {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        height: 80px;
         overflow: hidden;
         .player-song-info {
             margin: 0;
-            height: 20px;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;

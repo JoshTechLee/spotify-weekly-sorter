@@ -3,7 +3,7 @@
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 100px auto 80px;
+    grid-template-rows: 100px auto 60px;
     grid-template-areas:
         'header-1 header-2'
         'body-1 body-2'
@@ -44,7 +44,6 @@
 
     .player {
         grid-area: footer;
-
-        background-color: aqua;
+        background-color: darkblue;
     }
 }

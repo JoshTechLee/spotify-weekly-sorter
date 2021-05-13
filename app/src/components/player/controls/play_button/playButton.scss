@@ -1,12 +1,12 @@
 .play-button-container {
-    $button-size: 40px;
+    $button-size: 35px;
     height: $button-size;
     width: $button-size;
     border-radius: 100%;
     background: white;
     .triangle {
         $triangle-size: 8px;
-        margin: 12px 16px;
+        margin: 10px 13px;
         width: 0;
         height: 0;
         border-top: $triangle-size solid transparent;
