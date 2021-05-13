@@ -9,6 +9,7 @@ const PlayerControls = ({ seek, isPlaying }) => {
     return (
         <div className="player-controls-container">
             <div className="player-controls">
+                <SkipButton isRewind={true} />
                 <PlayButton />
                 <PauseButton />
                 <SkipButton />

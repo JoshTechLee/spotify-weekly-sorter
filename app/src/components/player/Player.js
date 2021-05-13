@@ -7,7 +7,7 @@ import Settings from './settings/Settings';
 const Player = () => {
     const tempSong = {
         img: 'https://i.scdn.co/image/89b92c6b59131776c0cd8e5df46301ffcf36ed69',
-        title: 'some random nameaaasdfasdfasdfasdfasdfasdfasdfasdf',
+        title: 'some random nameaaasdfasdfasdfasddfasdf',
         artists: 'some random artist',
     };
 

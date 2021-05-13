@@ -1,9 +1,12 @@
 import './skipButton.scss';
 import React from 'react';
 
-const SkipButton = () => {
+const SkipButton = ({ isRewind = null }) => {
     return (
-        <div className="skip-button-container">
+        <div
+            style={isRewind && { transform: 'rotate(180deg)' }}
+            className={'skip-button-container'}
+        >
             <div className="bar"></div>
             <div className="triangle"></div>
         </div>

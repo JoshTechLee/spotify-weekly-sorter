@@ -4,7 +4,6 @@ $button-size: 40px;
     height: $button-size;
     width: $button-size;
     border-radius: 100%;
-    background: white;
     .triangle {
         $triangle-size: 8px;
         position: absolute;
@@ -13,13 +12,13 @@ $button-size: 40px;
         height: 0;
         border-top: $triangle-size solid transparent;
         border-bottom: $triangle-size solid transparent;
-        border-left: #{$triangle-size * 1.5} solid black;
+        border-left: #{$triangle-size * 1.5} solid white;
     }
     .bar {
         position: absolute;
         margin: 12px 24px;
         height: 16px;
         width: 3px;
-        background-color: black;
+        background-color: white;
     }
 }
