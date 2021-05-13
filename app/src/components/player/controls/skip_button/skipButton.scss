@@ -1,0 +1,25 @@
+$button-size: 40px;
+.skip-button-container {
+    position: relative;
+    height: $button-size;
+    width: $button-size;
+    border-radius: 100%;
+    background: white;
+    .triangle {
+        $triangle-size: 8px;
+        position: absolute;
+        margin: 12px 14px;
+        width: 0;
+        height: 0;
+        border-top: $triangle-size solid transparent;
+        border-bottom: $triangle-size solid transparent;
+        border-left: #{$triangle-size * 1.5} solid black;
+    }
+    .bar {
+        position: absolute;
+        margin: 12px 24px;
+        height: 16px;
+        width: 3px;
+        background-color: black;
+    }
+}

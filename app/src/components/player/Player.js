@@ -16,10 +16,10 @@ const Player = () => {
             <div className="player-song-grid-container">
                 <Song song={tempSong} />
             </div>
-            <div className="player-controls-container">
+            <div className="player-controls-grid-container">
                 <Controls seek={70} isPlaying={false} />
             </div>
-            <div className="player-settings-container">{/* <PlayerControls /> */}</div>
+            <div className="player-settings-grid-container">{/* <PlayerControls /> */}</div>
         </div>
     );
 };

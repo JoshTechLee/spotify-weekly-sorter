@@ -1,3 +1,11 @@
-.player-song-container {
-    background-color: red;
+.player-controls-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    .player-controls {
+        height: auto;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+    }
 }
