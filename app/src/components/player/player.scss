@@ -5,7 +5,7 @@
     flex-wrap: nowrap;
     justify-content: space-between;
     .player-song-grid-container {
-        width: 500px;
+        width: 450px;
         min-width: 250px;
         overflow: hidden;
         height: 100%;
@@ -13,7 +13,7 @@
     .player-controls-grid-container {
         flex-grow: 1;
         width: 500px;
-        min-width: 400px;
+        min-width: 350px;
         height: 100%;
         background-color: red;
     }
