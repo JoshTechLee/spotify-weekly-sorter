@@ -1,13 +1,37 @@
-import { FETCH_SPOTIFY_USER_DATA } from '../../resources/constants';
+import {
+    GET_SPOTIFY_ACCESS_TOKEN,
+    GET_SPOTIFY_USER_DATA,
+    RUN_THROUGH_CHECKLIST,
+} from '../../resources/constants';
 
 const intialState = {
-    isLoading: true,
+    loadingMessage: 'Working...',
+    accessToken: '',
+    spotifyId: '',
+    errors: [],
+    hasPassedChecklist: false,
 };
 
 function rootReducer(state = intialState, action) {
     switch (action.type) {
-        case FETCH_SPOTIFY_USER_DATA.REQUEST:
-            return { isLoading: true };
+        case GET_SPOTIFY_ACCESS_TOKEN.REQUEST:
+            return { ...state, loadingMessage: 'Getting access token...' };
+        case GET_SPOTIFY_ACCESS_TOKEN.SUCCESS:
+            return { ...state, accessToken: action.accessToken };
+        case GET_SPOTIFY_ACCESS_TOKEN.FAILURE:
+            return { ...state, errors: [...state.errors, 'Could not retrieve access token'] };
+        case GET_SPOTIFY_USER_DATA.REQUEST:
+            return { ...state, loadingMessage: 'Getting user data' };
+        case GET_SPOTIFY_USER_DATA.SUCCESS:
+            return { ...state, spotifyId: action.spotifyId };
+        case GET_SPOTIFY_USER_DATA.FAILURE:
+            return { ...state, errors: [...state.errors, 'Could not retrieve user data'] };
+        case RUN_THROUGH_CHECKLIST: {
+            if (!!state.accessToken && !!state.spotifyId)
+                return { ...state, hasPassedChecklist: true };
+
+            return { ...state, hasPassedChecklist: false };
+        }
         default:
             return state;
     }

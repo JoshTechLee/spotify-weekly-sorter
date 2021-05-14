@@ -13,7 +13,7 @@ import MainPage from './components/MainPage';
 import { useSelector, useDispatch } from 'react-redux';
 import { SPOTIFY_URL } from './resources/constants';
 import actions from './redux/actions/actions';
-import ipc from './electron/ipc';
+import ipc from './electron/ipcRenderer';
 
 function App() {
     const dispatch = useDispatch();
@@ -24,19 +24,28 @@ function App() {
     }));
 
     useEffect(() => {
-        // const params = new URLSearchParams(window.location.search);
-        // const paramAccessToken = params.get('access_token');
-        // let spotifyId;
-        // ipc.getSpotifyId((_, data) => (spotifyId = data.spotifyId));
-        // console.log(paramAccessToken);
-        // if (!spotifyId && !accessToken && !paramAccessToken) {
-        //     window.location.href = SPOTIFY_URL.LOGIN;
-        // } else if (!accessToken && !paramAccessToken) {
-        //     dispatch(actions.getSpotifyAccessToken.request({ spotifyId }));
-        // } else if (!accessToken) {
-        //     dispatch(actions.saveSpotifyAccessToken({ accessToken: paramAccessToken }));
-        // }
+        fetchFirstAccessToken();
+        // fetchFirstPlaylists();
     }, [dispatch]);
+
+    const fetchFirstAccessToken = () => {
+        const params = new URLSearchParams(window.location.search);
+        const paramAccessToken = params.get('access_token');
+        let spotifyId;
+        ipc.getSpotifyId((_, data) => (spotifyId = data.spotifyId));
+        console.log(paramAccessToken);
+        if (!spotifyId && !accessToken && !paramAccessToken) {
+            window.location.href = SPOTIFY_URL.LOGIN;
+        } else if (!accessToken && !paramAccessToken) {
+            dispatch(actions.getSpotifyAccessToken.request({ spotifyId }));
+        } else if (!accessToken) {
+            dispatch(actions.saveSpotifyAccessToken({ accessToken: paramAccessToken }));
+        }
+    };
+
+    const fetchFirstPlaylists = () => {
+        dispatch(actions);
+    };
 
     const testButton = () => {
         console.log('button clicked!');

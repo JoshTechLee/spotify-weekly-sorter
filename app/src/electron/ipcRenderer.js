@@ -5,7 +5,7 @@ const getSpotifyId = (callback) => {
     ipcRenderer.once('GET_SPOTIFY_ID', callback);
 };
 
-const setSpotifyId = (data, callback = null) => {
+const setSpotifyId = (data) => {
     ipcRenderer.send('SAVE_SPOTIFY_ID', data);
 };
 

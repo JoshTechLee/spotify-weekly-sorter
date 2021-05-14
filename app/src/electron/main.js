@@ -10,13 +10,13 @@ const store = new Store();
 
 ipcMain.on('GET_SPOTIFY_ID', (event, _) => {
     const spotifyId = store.get('spotifyId');
-    console.log('woah woah, we got ' + spotifyId);
+    console.log('[GET_SPOTIFY_ID]  ' + spotifyId);
     event.reply('GET_SPOTIFY_ID', { spotifyId });
 });
 
-ipcMain.on('SAVE_SPOTIFY_ID', (_, data) => {
-    console.log('hey hey, we saving ' + data.spotifyId);
-    store.set('spotifyId', data.spotifyId);
+ipcMain.on('SAVE_SPOTIFY_ID', (_, { spotifyId }) => {
+    console.log('[SAVE_SPOTIFY_ID]  ' + spotifyId);
+    store.set('spotifyId', spotifyId);
 });
 
 function createWindow() {
