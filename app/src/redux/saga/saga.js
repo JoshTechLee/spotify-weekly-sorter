@@ -3,26 +3,30 @@ import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
 import { SPOTIFY_URL } from '../../resources/constants';
-import actions from '../../redux/actions/actions';
+import { ActionTypes } from '../constants/actionTypes';
+import actions from '../actions/initializationActions';
 
 const api = ({ url, payload }) => {
     return axios.get(url, { params: payload });
 };
 
-function* fetchSpotifyAccessToken(action) {
+function* fetchAccessToken(action) {
     try {
         const accessToken = yield call(api, {
             url: SPOTIFY_URL.ACCESS_TOKEN,
             payload: { spotify_id: action.spotifyId },
         });
-        yield put(actions.getSpotifyAccessToken.success({ accessToken }));
-    } catch (err) {
-        yield put(actions.getSpotifyAccessToken.failure({ message: err.message }));
+
+        yield put(actions.getAccessToken.success({ accessToken }));
+    } catch (_) {
+        yield put(actions.getAccessToken.failure({ error: 'Could not retrieve access token' }));
     }
 }
 
-function* mySaga() {
-    yield takeEvery('GET_SPOTIFY_ACCESS_TOKEN_REQUEST', fetchSpotifyAccessToken);
+function* fetchUserData(action) {}
+
+function* listeners() {
+    yield takeEvery(ActionTypes.GET_ACCESS_TOKEN.REQUEST, fetchAccessToken);
 }
 
-export default mySaga;
+export default listeners;
