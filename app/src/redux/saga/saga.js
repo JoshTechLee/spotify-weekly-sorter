@@ -12,18 +12,15 @@ const api = ({ url, payload }) => {
 
 function* fetchAccessToken(action) {
     try {
-        const accessToken = yield call(api, {
+        const { data } = yield call(api, {
             url: SPOTIFY_URL.ACCESS_TOKEN,
             payload: { spotify_id: action.spotifyId },
         });
-
-        yield put(actions.getAccessToken.success({ accessToken }));
+        yield put(actions.getAccessToken.success({ accessToken: data.access_token }));
     } catch (_) {
         yield put(actions.getAccessToken.failure({ error: 'Could not retrieve access token' }));
     }
 }
-
-function* fetchUserData(action) {}
 
 function* listeners() {
     yield takeEvery(ActionTypes.GET_ACCESS_TOKEN.REQUEST, fetchAccessToken);

@@ -1,6 +1,6 @@
 import { ActionTypes } from '../constants/actionTypes';
 
-const getAccessToken = {
+const getPlaylist = {
     request: ({ spotifyId }) => ({
         type: ActionTypes.GET_ACCESS_TOKEN.REQUEST,
         spotifyId,

@@ -1,19 +1,19 @@
 const { ipcRenderer } = window.require('electron');
 
-const getId = () => {
-    var spotifyId = '';
-    ipcRenderer.send('GET_ID');
-    ipcRenderer.once('GET_ID', (_, data) => (spotifyId = data.spotifyId));
-    return spotifyId;
+const getUserData = () => {
+    var result = {};
+    ipcRenderer.send('GET_USER_DATA');
+    ipcRenderer.once('GET_USER_DATA', (_, data) => (result = data));
+    return result;
 };
 
-const setId = (data) => {
-    ipcRenderer.send('SAVE_ID', data);
+const setUserData = (data) => {
+    ipcRenderer.send('SAVE_USER_DATA', data);
 };
 
 const ipc = {
-    getId,
-    setId,
+    getUserData,
+    setUserData,
 };
 
 export default ipc;

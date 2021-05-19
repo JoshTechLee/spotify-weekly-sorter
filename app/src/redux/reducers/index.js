@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import { initializationReducer } from './initializationReducer';
+import { userDataReducer } from './userDataReducer';
 import { errorReducer } from './errorReducer';
 const reducers = combineReducers({
-    userData: initializationReducer,
+    userData: userDataReducer,
     error: errorReducer,
 });
 export default reducers;

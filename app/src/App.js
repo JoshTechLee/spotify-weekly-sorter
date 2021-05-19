@@ -1,61 +1,60 @@
 import React, { useState, useEffect } from 'react';
-import LoadingPage from './components/loading_page/LoadingPage';
-import MainPage from './components/MainPage';
 import { useSelector, useDispatch } from 'react-redux';
+import queryString from 'query-string';
+
 import { SPOTIFY_URL } from './resources/constants';
 import actions from './redux/actions/initializationActions';
 import ipc from './electron/ipcRenderer';
+import MainPage from './components/MainPage';
 
 function App() {
     const dispatch = useDispatch();
 
-    const { accessToken, spotifyId, isLoading } = useSelector((state) => {
-        console.log(state);
-
-        return {
-            accessToken: state.accessToken,
-            spotifyId: state.spotifyId,
-            isLoading: state.isLoading,
-        };
-    });
+    const { accessToken, userData } = useSelector((state) => ({
+        accessToken: state.userData.accessToken,
+        userData: state.userData,
+    }));
 
     useEffect(() => {
-        fetchFirstAccessToken();
-        fetchUserData();
+        if (!accessToken || !userData.spotifyId) fetchFirstAccessToken();
     }, [dispatch]);
 
     const fetchFirstAccessToken = () => {
-        const paramAccessToken = new URLSearchParams(window.location.search).get('access_token');
-        const spotifyId = ipc.getId();
-        if (!spotifyId && !accessToken && !paramAccessToken) {
+        const params = queryString.parse(window.location.search);
+        const paramAccessToken = params.access_token;
+        let userData = {
+            displayName: params.display_name,
+            spotifyId: params.id,
+            image: params.image,
+            isPremium: params.is_premium == 'true',
+        };
+        console.log('this ran this many times');
+        // If user data not provided in URL, get user data from local save file.  If user
+        // data not available, initiate redirect + spotify login.  Get access token after.
+        if (!userData.spotifyId) userData = ipc.getUserData();
+        if (!userData.spotifyId && !accessToken && !paramAccessToken)
             window.location.href = SPOTIFY_URL.LOGIN;
-        } else if (!accessToken && !paramAccessToken) {
-            dispatch(actions.getAccessToken.request({ spotifyId }));
-        } else if (!accessToken) {
-            dispatch(actions.saveAccessToken({ accessToken: paramAccessToken }));
+        if (userData.spotifyId) dispatch(actions.getUserData.success({ userData }));
+        else if (!accessToken && userData.spotfyId) {
+            dispatch(actions.getAccessToken.request({ spotifyId: userData.spotifyId }));
+        } else if (!accessToken && paramAccessToken) {
+            dispatch(actions.getAccessToken.success({ accessToken: paramAccessToken }));
         }
     };
 
-    const fetchUserData = () => {
-        const spotifyId = ipc.getId();
-        if (spotifyId) dispatch(actions.saveUserData({ spotifyId }));
-        else dispatch(actions.getUserData.request());
-    };
+    // const fetchPlaylists = () => {
+    //     dispatch(actions.)
+    // }
 
     const testButton = () => {
-        console.log('button clicked!');
         dispatch(
-            actions.getAccessToken.request({
-                spotifyId: 'spotify:user:21qne2mcji3tafrotvafjqrry',
-            })
+            actions.getAccessToken.request({ spotifyId: 'spotify:user:21qne2mcji3tafrotvafjqrry' })
         );
     };
 
-    // if (isLoading) return <LoadingPage />;
-    // else return <MainPage />;
-
-    // return <button onClick={testButton}>Test Button</button>;
     return <MainPage />;
+
+    // return <button onClick={testButton}>testing</button>;
 }
 
 export default App;

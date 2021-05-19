@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+
 function Playlist({ image, title, description, isSongAdded }) {
     const [color, setColor] = useState('red');
     return (

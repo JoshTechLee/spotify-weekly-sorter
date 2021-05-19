@@ -1,6 +1,7 @@
 import './mainPage.scss';
 import React from 'react';
 import Player from './player/Player';
+import Playlists from './playlists/Playlists';
 import SearchBox from '../components/search_box/SearchBox';
 
 const MainPage = () => {

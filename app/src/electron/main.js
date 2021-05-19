@@ -8,15 +8,15 @@ const { ipcMain } = require('electron');
 
 const store = new Store();
 
-ipcMain.on('GET_ID', (event, _) => {
-    const spotifyId = store.get('spotifyId');
-    console.log('[GET_ID]  ' + spotifyId);
-    event.reply('GET_ID', { spotifyId });
+ipcMain.on('GET_USER_DATA', (event, _) => {
+    const userData = store.get('userData');
+    console.log('[GET_USER_DATA]  ' + userData);
+    event.reply('GET_USER_DATA', userData);
 });
 
-ipcMain.on('SAVE_ID', (_, { spotifyId }) => {
-    console.log('[SAVE_ID]  ' + spotifyId);
-    store.set('spotifyId', spotifyId);
+ipcMain.on('SAVE_USER_DATA', (_, data) => {
+    console.log('[SAVE_USER_DATA]  ' + data);
+    store.set('userData', data);
 });
 
 function createWindow() {

@@ -27,7 +27,7 @@ router.get('/callback', async (req, res) => {
     const { access_token, refresh_token } = await getSpotifyRefreshToken({ code }, ({ data }) => {
         return { access_token: data.access_token, refresh_token: data.refresh_token };
     });
-    const user = await getSpotifyUserProfile({ access_token }, ({ data }) => {
+    const { id, ...user } = await getSpotifyUserProfile({ access_token }, ({ data }) => {
         const new_user = {
             id: data.uri,
             display_name: data.display_name,
@@ -36,16 +36,13 @@ router.get('/callback', async (req, res) => {
         };
         return new_user;
     });
-    User.findByIdAndUpdate(
-        user.id,
-        { _id: user.id, refresh_token, is_premium: user.is_premium },
-        { upsert: true }
-    );
+    User.findByIdAndUpdate(id, { ...user, _id: id }, { upsert: true });
     res.redirect(
         process.env.CLIENT_URI +
             '?' +
             querystring.stringify({
-                user,
+                id,
+                ...user,
                 access_token,
             })
     );

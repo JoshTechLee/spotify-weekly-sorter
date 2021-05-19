@@ -3,13 +3,17 @@ import { ActionTypes } from '../constants/actionTypes';
 const initialState = {
     accessToken: '',
     spotifyId: '',
+    displayName: '',
+    image: '',
+    isPremium: false,
 };
-export const initializationReducer = (state = initialState, action) => {
+export const userDataReducer = (state = initialState, action) => {
     switch (action.type) {
         case ActionTypes.GET_ACCESS_TOKEN.SUCCESS:
+            console.log(action);
             return { ...state, accessToken: action.accessToken };
         case ActionTypes.GET_USER_DATA.SUCCESS:
-            return { ...state, spotifyId: action.spotifyId };
+            return { ...state, ...action.userData };
         default:
             return state;
     }
