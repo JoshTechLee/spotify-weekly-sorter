@@ -9,10 +9,10 @@ const initialState = {
 };
 export const userDataReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ActionTypes.GET_ACCESS_TOKEN.SUCCESS:
+        case ActionTypes.GET_FIRST_ACCESS_TOKEN.SUCCESS:
             console.log(action);
             return { ...state, accessToken: action.accessToken };
-        case ActionTypes.GET_USER_DATA.SUCCESS:
+        case ActionTypes.GET_FIRST_USER_DATA.SUCCESS:
             return { ...state, ...action.userData };
         default:
             return state;
