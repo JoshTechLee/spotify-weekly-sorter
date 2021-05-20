@@ -7,10 +7,11 @@ const initialState = {
     image: '',
     isPremium: false,
 };
-export const userDataReducer = (state = initialState, action) => {
+export const userPlaylistsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ActionTypes.GET_ACCESS_TOKEN.SUCCESS:
-            return { ...state, accessToken: action.accessToken };
+        case ActionTypes.GET_USER_PLAYLISTS.REQUEST:
+            console.log('WELL WELL WEL');
+            return {};
         case ActionTypes.GET_USER_DATA.SUCCESS:
             return { ...state, ...action.userData };
         default:

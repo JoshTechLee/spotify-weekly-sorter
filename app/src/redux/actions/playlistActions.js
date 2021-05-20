@@ -1,37 +1,15 @@
 import { ActionTypes } from '../constants/actionTypes';
 
-const getPlaylist = {
-    request: ({ spotifyId }) => ({
-        type: ActionTypes.GET_ACCESS_TOKEN.REQUEST,
-        spotifyId,
-    }),
-    success: ({ accessToken }) => ({
-        type: ActionTypes.GET_ACCESS_TOKEN.SUCCESS,
-        accessToken,
-    }),
-    failure: ({ message }) => ({
-        type: ActionTypes.GET_ACCESS_TOKEN.FAILURE,
-        message,
-    }),
-};
-
-const getUserData = {
+export const getUserPlaylists = {
     request: () => ({
-        type: ActionTypes.GET_USER_DATA.REQUEST,
+        type: ActionTypes.GET_USER_PLAYLISTS.REQUEST,
     }),
-    success: ({ userData }) => ({
-        type: ActionTypes.GET_USER_DATA.SUCCESS,
-        userData,
+    success: ({ playlists }) => ({
+        type: ActionTypes.GET_USER_PLAYLISTS.SUCCESS,
+        playlists,
     }),
-    failure: ({ message }) => ({
-        type: ActionTypes.GET_USER_DATA.FAILURE,
-        message,
+    failure: ({ error }) => ({
+        type: ActionTypes.GET_USER_PLAYLISTS.FAILURE,
+        error,
     }),
 };
-
-const action = {
-    getAccessToken,
-    getUserData,
-};
-
-export default action;
