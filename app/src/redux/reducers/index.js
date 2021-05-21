@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
+import { accessTokenReducer } from './accessTokenReducer';
 import { userDataReducer } from './userDataReducer';
-import { errorReducer } from './errorReducer';
 import { userPlaylistsReducer } from './userPlaylistsReducer';
+import { errorReducer } from './errorReducer';
 
 const reducers = combineReducers({
+    accessToken: accessTokenReducer,
     userData: userDataReducer,
     userPlaylists: userPlaylistsReducer,
     error: errorReducer,

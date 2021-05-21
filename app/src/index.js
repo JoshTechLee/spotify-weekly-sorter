@@ -9,7 +9,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import './index.css';
 import App from './App';
 import rootReducer from './redux/reducers/index';
-import saga from './redux/sagas/saga';
+import saga from './redux/middleware/saga';
 
 const createElectronStorage = window.require('redux-persist-electron-storage');
 const ElectronStore = window.require('electron-store');

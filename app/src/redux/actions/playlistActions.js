@@ -1,4 +1,4 @@
-import { ActionTypes } from '../constants/actionTypes';
+import { ActionTypes } from '../../resources/constants';
 
 export const getUserPlaylists = {
     request: () => ({

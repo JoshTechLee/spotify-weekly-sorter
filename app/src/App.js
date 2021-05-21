@@ -13,7 +13,7 @@ function App() {
     const dispatch = useDispatch();
 
     const { accessToken, userData } = useSelector((state) => ({
-        accessToken: state.userData.accessToken,
+        accessToken: state.accessToken.code,
         userData: state.userData,
     }));
 
