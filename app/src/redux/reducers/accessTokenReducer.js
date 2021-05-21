@@ -8,8 +8,8 @@ const initialState = {
     fetchLimitReached: false,
 };
 
-export const accessTokenReducer = (state = initialState, action) => {
-    switch (action.type) {
+export const accessTokenReducer = (state = initialState, { type, payload }) => {
+    switch (type) {
         case ActionTypes.GET_ACCESS_TOKEN.FAILURE:
             console.log('what what we reaching here what what');
             console.log(state.fetchAttempts, FETCH_ATTEMPT_LIMIT);
@@ -23,10 +23,13 @@ export const accessTokenReducer = (state = initialState, action) => {
         case ActionTypes.GET_ACCESS_TOKEN.SUCCESS:
             return {
                 ...state,
-                code: action.accessToken,
+                code: payload.accessToken,
                 fetchAttempts: 0,
                 fetchLimitReached: false,
             };
+        case ActionTypes.GET_ACCESS_TOKEN.REQUEST:
+            console.log('[accessTokenReducer]  GET_ACCESS_TOKEN.REQUEST');
+            return state;
         default:
             return state;
     }

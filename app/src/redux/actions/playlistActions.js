@@ -4,12 +4,12 @@ export const getUserPlaylists = {
     request: () => ({
         type: ActionTypes.GET_USER_PLAYLISTS.REQUEST,
     }),
-    success: ({ playlists }) => ({
+    success: (payload) => ({
         type: ActionTypes.GET_USER_PLAYLISTS.SUCCESS,
-        playlists,
+        payload,
     }),
-    failure: ({ error }) => ({
+    failure: (payload) => ({
         type: ActionTypes.GET_USER_PLAYLISTS.FAILURE,
-        error,
+        payload,
     }),
 };

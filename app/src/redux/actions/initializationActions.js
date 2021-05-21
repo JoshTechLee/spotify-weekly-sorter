@@ -1,17 +1,17 @@
 import { ActionTypes } from '../../resources/constants';
 
 export const getAccessToken = {
-    request: ({ spotifyId }) => ({
+    request: (payload) => ({
         type: ActionTypes.GET_ACCESS_TOKEN.REQUEST,
-        spotifyId,
+        payload,
     }),
-    success: ({ accessToken }) => ({
+    success: (payload) => ({
         type: ActionTypes.GET_ACCESS_TOKEN.SUCCESS,
-        accessToken,
+        payload,
     }),
-    failure: ({ message }) => ({
+    failure: (payload) => ({
         type: ActionTypes.GET_ACCESS_TOKEN.FAILURE,
-        message,
+        payload,
     }),
 };
 
@@ -19,12 +19,12 @@ export const getUserData = {
     request: () => ({
         type: ActionTypes.GET_USER_DATA.REQUEST,
     }),
-    success: ({ userData }) => ({
+    success: (payload) => ({
         type: ActionTypes.GET_USER_DATA.SUCCESS,
-        userData,
+        payload,
     }),
-    failure: ({ message }) => ({
+    failure: (payload) => ({
         type: ActionTypes.GET_USER_DATA.FAILURE,
-        message,
+        payload,
     }),
 };

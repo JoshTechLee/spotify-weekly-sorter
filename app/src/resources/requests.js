@@ -16,10 +16,13 @@ const spotifyConfig = ({ accessToken, params }) => ({
 });
 
 export const fetchUserPlaylists = ({ offset, accessToken }) =>
-    axios.get(SPOTIFY_BASE_URL + 'playlists', spotifyConfig({ accessToken, params: { offset } }));
+    axios.get(
+        SPOTIFY_BASE_URL + 'playlists',
+        spotifyConfig({ accessToken, params: { limit: 50, offset } })
+    );
 
 export const fetchAccessToken = ({ spotifyId }) =>
-    axios.get(SERVER_URL.ACCESS_TOKEN, { params: { spotifyId } });
+    axios.get(SERVER_URL.ACCESS_TOKEN, { params: { spotify_id: spotifyId } });
 
 // export const fetchUserData = () => (dispatch) => {
 //     dispatch({ type: FETCH_USER_DATA.REQUEST });

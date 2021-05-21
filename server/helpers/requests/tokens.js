@@ -21,7 +21,7 @@ exports.getSpotifyRefreshToken = async ({ code }, callback) => {
         .then(callback)
         .catch((err) => {
             console.log('ERROR: getSpotifyRefreshToken');
-            console.log(err);
+            console.log(err.response.data);
         });
 };
 
@@ -35,6 +35,6 @@ exports.getSpotifyAccessToken = async ({ refresh_token }, callback) => {
         .then(callback)
         .catch((err) => {
             console.log('ERROR: getSpotifyAccessToken');
-            console.log(err);
+            console.log(err.response.data);
         });
 };

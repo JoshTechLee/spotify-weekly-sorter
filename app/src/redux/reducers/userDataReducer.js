@@ -6,10 +6,10 @@ const initialState = {
     image: '',
     isPremium: false,
 };
-export const userDataReducer = (state = initialState, action) => {
-    switch (action.type) {
+export const userDataReducer = (state = initialState, { type, payload }) => {
+    switch (type) {
         case ActionTypes.GET_USER_DATA.SUCCESS:
-            return { ...state, ...action.userData };
+            return { ...state, ...payload.userData };
         default:
             return state;
     }
