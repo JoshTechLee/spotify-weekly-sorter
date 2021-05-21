@@ -11,7 +11,9 @@ const MainPage = () => {
                 <SearchBox />
             </div>
             <div className="songs-header">I am song header</div>
-            <div className="playlists-body">I am playlist body</div>
+            <div className="playlists-body">
+                <Playlists />
+            </div>
             <div className="songs-body">
                 <button onClick={() => {}}>NOOT NOOT</button>
             </div>

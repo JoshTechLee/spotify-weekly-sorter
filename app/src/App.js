@@ -11,14 +11,12 @@ import MainPage from './components/MainPage';
 
 function App() {
     const dispatch = useDispatch();
-
     const { accessToken, userData } = useSelector((state) => ({
         accessToken: state.accessToken.code,
         userData: state.userData,
     }));
 
     useEffect(() => {
-        console.log('we got here');
         if (!accessToken || !userData.spotifyId) initializeApp();
     }, [dispatch]);
 
@@ -59,7 +57,7 @@ function App() {
         dispatch({ type: 'RESET' });
     };
 
-    // return <MainPage />;
+    return <MainPage />;
 
     return (
         <div>

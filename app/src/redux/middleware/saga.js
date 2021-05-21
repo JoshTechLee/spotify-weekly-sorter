@@ -17,12 +17,25 @@ function* fetchAccessToken(action) {
 
 function* fetchUserPlaylists(action) {
     try {
-        const accessToken = yield select((state) => state.accessToken.code);
-        console.log(accessToken);
-        // TODO: set the offset mcbobber majiggy cause it's defaulted to 0
-        const { data } = yield call(requests.fetchUserPlaylists, { offset: 0, accessToken });
-        const displayName = yield select((state) => state.userData.displayName);
-        yield put(getUserPlaylists.success(parser.parseUserPlaylists({ data, displayName })));
+        var { accessToken, displayName, areMorePlaylists, userPlaylists, otherPlaylists, offset } =
+            yield select((state) => ({
+                accessToken: state.accessToken.code,
+                displayName: state.userData.displayName,
+                userPlaylists: [],
+                otherPlaylists: [],
+                offset: 0,
+            }));
+        while (areMorePlaylists) {
+            const { data } = yield call(requests.fetchUserPlaylists, { offset, accessToken });
+            ({ userPlaylists, otherPlaylists, areMorePlaylists } = parser.parseUserPlaylists({
+                userPlaylists,
+                otherPlaylists,
+                displayName,
+                data,
+            }));
+            offset += 50;
+        }
+        yield put(getUserPlaylists.success({ otherPlaylists, userPlaylists, areMorePlaylists }));
     } catch (err) {
         console.log(err.response.data.error);
         yield refreshAccessTokenAndRetry(err, () => fetchUserPlaylists(action));
@@ -37,7 +50,6 @@ function* refreshAccessTokenAndRetry(err, lastRequest) {
         };
         if (status == 401 && message == 'The access token expired') {
             const fetchLimitReached = yield select((state) => state.accessToken.fetchLimitReached);
-            const fetchAttempts = yield select((state) => state.accessToken.fetchAttempts);
             yield put(getAccessToken.failure({ error: 'Could not retrieve access token' }));
             if (!fetchLimitReached) {
                 const spotifyId = yield select((state) => state.userData.spotifyId);

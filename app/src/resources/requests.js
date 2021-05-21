@@ -18,7 +18,7 @@ const spotifyConfig = ({ accessToken, params }) => ({
 export const fetchUserPlaylists = ({ offset, accessToken }) =>
     axios.get(
         SPOTIFY_BASE_URL + 'playlists',
-        spotifyConfig({ accessToken, params: { limit: 50, offset } })
+        spotifyConfig({ accessToken, params: { limit: 5, offset } })
     );
 
 export const fetchAccessToken = ({ spotifyId }) =>
