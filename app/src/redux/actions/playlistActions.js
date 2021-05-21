@@ -13,3 +13,7 @@ export const getUserPlaylists = {
         payload,
     }),
 };
+
+export const clearUserPlaylists = {
+    type: ActionTypes.CLEAR_USER_PLAYLISTS,
+};

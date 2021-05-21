@@ -50,14 +50,23 @@ function App() {
     //     dispatch(actions.)
     // }
 
-    const testButton = () => {
+    const testButton1 = () => {
         dispatch(getUserPlaylists.request());
         // dispatch(getAccessToken.request({ spotifyId: userData.spotifyId }));
     };
 
+    const testButton2 = () => {
+        dispatch({ type: 'RESET' });
+    };
+
     // return <MainPage />;
 
-    return <button onClick={testButton}>testing</button>;
+    return (
+        <div>
+            <button onClick={testButton1}>testing</button>
+            <button onClick={testButton2}>PURGE THIS</button>
+        </div>
+    );
 }
 
 export default App;

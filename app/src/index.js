@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { Provider } from 'react-redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
+import reduxReset from 'redux-reset';
 
 import './index.css';
 import App from './App';
@@ -23,7 +24,8 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 const sagaMiddleware = createSagaMiddleware();
-const store = createStore(persistedReducer, applyMiddleware(sagaMiddleware));
+const enhanceCreateStore = compose(applyMiddleware(sagaMiddleware), reduxReset())(createStore);
+const store = enhanceCreateStore(persistedReducer);
 
 sagaMiddleware.run(saga);
 

@@ -39,13 +39,8 @@ function* refreshAccessTokenAndRetry(err, lastRequest) {
             const fetchLimitReached = yield select((state) => state.accessToken.fetchLimitReached);
             const fetchAttempts = yield select((state) => state.accessToken.fetchAttempts);
             yield put(getAccessToken.failure({ error: 'Could not retrieve access token' }));
-
-            console.log(fetchLimitReached);
-            console.log('what what is this?');
-            console.log(fetchAttempts);
             if (!fetchLimitReached) {
                 const spotifyId = yield select((state) => state.userData.spotifyId);
-                console.log(spotifyId);
                 yield fetchAccessToken({ spotifyId });
                 yield lastRequest();
             }
