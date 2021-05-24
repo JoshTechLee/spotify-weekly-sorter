@@ -1,13 +1,16 @@
+import './playlist.scss';
 import React, { useState } from 'react';
 
-function Playlist({ image, title, description, isSongAdded }) {
+function Playlist({ images, name, description, isSongAdded }) {
     const [color, setColor] = useState('red');
+    const testing = () => {};
     return (
-        <div className="playlist">
-            {image ? <image src={image} /> : 'N/A'}
+        <div className="Playlist">
+            {images[0] ? <img src={images[0].url} /> : <div className="no-image">No Image</div>}
             <div className="playlist-body">
-                <h3 className="playlist-title">{title}</h3>
+                <h3 className="playlist-title">{name}</h3>
                 <p className="playlist-body">{description}</p>
+                {/* <button onClick={testing}>what what</button> */}
             </div>
         </div>
     );

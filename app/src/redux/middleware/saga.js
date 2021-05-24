@@ -52,7 +52,7 @@ function* refreshAccessTokenAndRetry(err, lastRequest) {
             status: err.response.data.error.status,
             message: err.response.data.error.message,
         };
-        if (status == 401 && message == 'The access token expired') {
+        if (status === 401 && message === 'The access token expired') {
             const fetchLimitReached = yield select((state) => state.accessToken.fetchLimitReached);
             yield put(getAccessToken.failure({ error: 'Could not retrieve access token' }));
             if (!fetchLimitReached) {

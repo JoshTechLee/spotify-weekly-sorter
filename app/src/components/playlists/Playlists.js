@@ -1,38 +1,38 @@
+import './Playlists.scss';
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUserPlaylists } from '../../redux/actions/playlistActions';
+import Playlist from './playlist/Playlist';
 
 function Playlists() {
     const dispatch = useDispatch();
-    const { userPlaylists, otherPlaylists, areMorePlaylists, accessToken } = useSelector(
-        (state) => {
-            return {
-                userPlaylists: state.playlists.userPlaylists,
-                otherPlaylists: state.playlists.otherPlaylists,
-                areMorePlaylists: state.playlists.areMorePlaylists,
-                accessToken: state.accessToken.code,
-            };
-        }
-    );
+    const { userPlaylists, areMorePlaylists, accessToken } = useSelector((state) => {
+        return {
+            userPlaylists: state.playlists.userPlaylists,
+            otherPlaylists: state.playlists.otherPlaylists,
+            areMorePlaylists: state.playlists.areMorePlaylists,
+            accessToken: state.accessToken.code,
+        };
+    });
 
     useEffect(() => {
-        console.log(areMorePlaylists);
         if (areMorePlaylists && accessToken) {
             dispatch(getUserPlaylists.request());
         }
     }, [dispatch]);
 
-    const testing = () => {
+    const clickable = () => {
         console.log(userPlaylists);
-        console.log(otherPlaylists);
-        console.log(areMorePlaylists);
-        console.log(accessToken);
+        console.log(userPlaylists[0].images[0].url);
     };
 
     return (
-        <ul className="playlists">
-            <button onClick={testing}>testing</button>
-            <button onClick={testing}>what what</button>
+        <ul className="Playlists">
+            {userPlaylists.map((playlist) => (
+                <li>
+                    <Playlist {...playlist} />
+                </li>
+            ))}
         </ul>
     );
 }

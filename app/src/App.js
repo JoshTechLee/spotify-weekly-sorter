@@ -27,7 +27,7 @@ function App() {
             displayName: params.display_name,
             spotifyId: params.id,
             image: params.image,
-            isPremium: params.is_premium == 'true',
+            isPremium: params.is_premium === 'true',
         };
         // If user data not provided in URL, get user data from local save file.  If user
         // data not available, initiate redirect + spotify login.  Get access token after.
