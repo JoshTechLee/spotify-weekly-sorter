@@ -22,13 +22,11 @@
     }
     .playlists-body {
         grid-area: body-2;
-        display: flex;
+        // display: flex;
         flex-wrap: wrap;
         justify-content: flex-start;
         align-content: flex-start;
         overflow-y: scroll;
-
-        background-color: blueviolet;
     }
 
     /* songs layout */
@@ -39,6 +37,8 @@
     }
     .songs-body {
         grid-area: body-1;
+        overflow-y: scroll;
+        direction: rtl;
 
         background-color: brown;
     }

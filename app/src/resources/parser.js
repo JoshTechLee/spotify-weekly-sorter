@@ -9,3 +9,9 @@ export const parseUserPlaylists = ({ userPlaylists, otherPlaylists, data, uri })
         areMorePlaylists: !!data.next,
     };
 };
+
+export const parsePlaylist = ({ data }) => {
+    return {
+        songs: data.tracks.items,
+    };
+};

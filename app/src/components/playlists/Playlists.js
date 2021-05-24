@@ -29,7 +29,7 @@ function Playlists() {
     return (
         <ul className="Playlists">
             {userPlaylists.map((playlist) => (
-                <li>
+                <li key={playlist.id}>
                     <Playlist {...playlist} />
                 </li>
             ))}

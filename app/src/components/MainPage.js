@@ -3,6 +3,7 @@ import React from 'react';
 import Player from './player/Player';
 import Playlists from './playlists/Playlists';
 import SearchBox from '../components/search_box/SearchBox';
+import Songs from './currentPlaylist/Songs';
 
 const MainPage = () => {
     return (
@@ -15,7 +16,7 @@ const MainPage = () => {
                 <Playlists />
             </div>
             <div className="songs-body">
-                <button onClick={() => {}}>NOOT NOOT</button>
+                <Songs />
             </div>
             <div className="player">
                 <Player />
