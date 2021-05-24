@@ -17,24 +17,28 @@ function* fetchAccessToken(action) {
 
 function* fetchUserPlaylists(action) {
     try {
-        var { accessToken, displayName, areMorePlaylists, userPlaylists, otherPlaylists, offset } =
+        var { accessToken, uri, areMorePlaylists, userPlaylists, otherPlaylists, offset } =
             yield select((state) => ({
                 accessToken: state.accessToken.code,
-                displayName: state.userData.displayName,
+                uri: state.userData.spotifyId,
+                areMorePlaylists: state.playlists.areMorePlaylists,
                 userPlaylists: [],
                 otherPlaylists: [],
                 offset: 0,
             }));
+        console.log(areMorePlaylists);
         while (areMorePlaylists) {
             const { data } = yield call(requests.fetchUserPlaylists, { offset, accessToken });
             ({ userPlaylists, otherPlaylists, areMorePlaylists } = parser.parseUserPlaylists({
                 userPlaylists,
                 otherPlaylists,
-                displayName,
+                uri,
                 data,
             }));
-            offset += 50;
+
+            offset += 5;
         }
+        console.log(userPlaylists, otherPlaylists);
         yield put(getUserPlaylists.success({ otherPlaylists, userPlaylists, areMorePlaylists }));
     } catch (err) {
         console.log(err.response.data.error);
@@ -57,7 +61,8 @@ function* refreshAccessTokenAndRetry(err, lastRequest) {
                 yield lastRequest();
             }
         }
-    } catch (_) {
+    } catch (err) {
+        console.log(err);
         console.log('oh fuck');
     }
 }

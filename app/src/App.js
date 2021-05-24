@@ -21,7 +21,6 @@ function App() {
     }, [dispatch]);
 
     const initializeApp = () => {
-        console.log('initializing app');
         const params = queryString.parse(window.location.search);
         const paramAccessToken = params.access_token;
         let userData = {
@@ -39,7 +38,6 @@ function App() {
         if (!accessToken && userData.spotfyId) {
             dispatch(getAccessToken.request({ spotifyId: userData.spotifyId }));
         } else if (!accessToken && paramAccessToken) {
-            console.log('posting params');
             dispatch(getAccessToken.success({ accessToken: paramAccessToken }));
         }
     };

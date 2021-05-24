@@ -1,14 +1,11 @@
-export const parseUserPlaylists = ({ userPlaylists, otherPlaylists, data, displayName }) => {
+export const parseUserPlaylists = ({ userPlaylists, otherPlaylists, data, uri }) => {
     for (const playlist of data.items) {
-        if (playlist.owner.display_name == displayName) userPlaylists.push(playlist);
+        if (playlist.owner.uri == uri) userPlaylists.push(playlist);
         else otherPlaylists.push(playlist);
     }
     return {
         otherPlaylists,
         userPlaylists,
-        total: data.total,
-        limit: data.limit,
-        offset: data.offset,
         areMorePlaylists: !!data.next,
     };
 };
