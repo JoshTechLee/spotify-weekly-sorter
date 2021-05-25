@@ -5,7 +5,7 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 70px auto 50px;
     grid-template-areas:
-        'header-1 header-2'
+        'header-1 body-2'
         'body-1 body-2'
         'footer footer';
 
@@ -13,35 +13,28 @@
     background-color: black;
 }
 
-.App {
-    /* playlist layout */
-    .playlists-header {
-        grid-area: header-2;
-    }
-    .playlists-body {
-        grid-area: body-2;
-        // display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        align-content: flex-start;
-        overflow-y: scroll;
-    }
+.playlists-grid-header {
+    grid-area: header-2;
+}
+.playlists-grid-body {
+    grid-area: body-2;
+    overflow-y: hidden;
+}
 
-    /* songs layout */
-    .songs-header {
-        grid-area: header-1;
+/* songs layout */
+.songs-grid-header {
+    grid-area: header-1;
 
-        background-color: black;
-    }
-    .songs-body {
-        grid-area: body-1;
-        overflow-y: scroll;
-        direction: rtl;
-        background-color: rgb(20, 20, 20);
-    }
+    background-color: black;
+}
+.songs-grid-body {
+    grid-area: body-1;
+    overflow-y: scroll;
+    direction: rtl;
+    background-color: rgb(20, 20, 20);
+}
 
-    .player {
-        grid-area: footer;
-        background-color: darkblue;
-    }
+.player-grid-body {
+    grid-area: footer;
+    background-color: darkblue;
 }

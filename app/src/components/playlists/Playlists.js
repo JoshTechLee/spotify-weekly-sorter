@@ -1,5 +1,5 @@
 import './Playlists.scss';
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUserPlaylists } from '../../redux/actions/playlistActions';
 import Playlist from './playlist/Playlist';
@@ -15,25 +15,38 @@ function Playlists() {
         };
     });
 
+    const [playlists, setPlaylists] = useState([]);
+    const [search, setSearch] = useState('');
+
     useEffect(() => {
         if (areMorePlaylists && accessToken) {
             dispatch(getUserPlaylists.request());
         }
     }, [dispatch]);
 
-    const clickable = () => {
-        console.log(userPlaylists);
-        console.log(userPlaylists[0].images[0].url);
-    };
-
     return (
-        <ul className="Playlists">
-            {userPlaylists.map((playlist) => (
-                <li key={playlist.id}>
-                    <Playlist {...playlist} />
-                </li>
-            ))}
-        </ul>
+        <div className="playlists-grid-body Playlists-container">
+            <div className="SearchBox">
+                <div className="input-container">
+                    <input
+                        id="auto"
+                        placeholder="Filter Playlists"
+                        type="text"
+                        value={search}
+                        onChange={(event) => setSearch(event.target.value)}
+                    />
+                </div>
+            </div>
+            <ul className="Playlists">
+                {userPlaylists
+                    .filter(({ name }) => name.toLowerCase().indexOf(search.toLowerCase()) > -1)
+                    .map((playlist) => (
+                        <li key={playlist.id}>
+                            <Playlist {...playlist} />
+                        </li>
+                    ))}
+            </ul>
+        </div>
     );
 }
 

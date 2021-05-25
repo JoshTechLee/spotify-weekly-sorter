@@ -17,6 +17,5 @@ export const parseMilisecondsToStandard = ({ ms }) => {
         .toString()
         .slice(0, 2);
     const minutes = Math.floor(ms / 60000);
-    console.log(seconds, minutes);
     return `${minutes}:${seconds}`;
 };

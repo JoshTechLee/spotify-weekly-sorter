@@ -28,6 +28,16 @@ export const getCurrentPlaylistSongs = {
     }),
 };
 
+export const setPlaylistSearch = {
+    filter: (payload) => ({
+        type: ActionTypes.SET_PLAYLIST_SEARCH.FILTER,
+        payload,
+    }),
+    clear: () => ({
+        type: ActionTypes.SET_PLAYLIST_SEARCH.CLEAR,
+    }),
+};
+
 export const clearUserPlaylists = {
     type: ActionTypes.CLEAR_USER_PLAYLISTS,
 };
