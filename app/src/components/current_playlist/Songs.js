@@ -22,10 +22,6 @@ function Songs() {
     };
     return (
         <ul className="Songs">
-            <li>
-                <button onClick={clickable}>testing</button>
-                <button onClick={clickable2}>see the songs</button>
-            </li>
             {songs.map((song, index) => (
                 <li key={song.track.id}>
                     <Song {...song} index={index + 1} />

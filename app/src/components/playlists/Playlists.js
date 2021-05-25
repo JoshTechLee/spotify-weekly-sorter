@@ -14,8 +14,6 @@ function Playlists() {
             accessToken: state.accessToken.code,
         };
     });
-
-    const [playlists, setPlaylists] = useState([]);
     const [search, setSearch] = useState('');
 
     useEffect(() => {
@@ -25,7 +23,7 @@ function Playlists() {
     }, [dispatch]);
 
     return (
-        <div className="playlists-grid-body Playlists-container">
+        <div className="Playlists-container">
             <div className="SearchBox">
                 <div className="input-container">
                     <input

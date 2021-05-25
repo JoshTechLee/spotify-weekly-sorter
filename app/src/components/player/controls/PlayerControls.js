@@ -11,7 +11,7 @@ const PlayerControls = ({ seek, isPlaying }) => {
             <div className="player-controls">
                 <SkipButton isRewind={true} />
                 <PlayButton />
-                <PauseButton />
+                {/* <PauseButton /> */}
                 <SkipButton />
             </div>
             <div className="player-progress-bar">
