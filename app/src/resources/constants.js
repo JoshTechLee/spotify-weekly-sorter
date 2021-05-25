@@ -6,6 +6,9 @@ export const SERVER_URL = {
     ACCESS_TOKEN: process.env.REACT_APP_SERVER_ADDRESS + '/spotify/token',
 };
 
+export const IMAGE_PLACEHOLDER =
+    'https://www.downloadclipart.net/large/24191-white-music-notes-design.png';
+
 export const ActionTypes = {
     GET_ACCESS_TOKEN: {
         REQUEST: 'GET_ACCESS_TOKEN_REQUEST',

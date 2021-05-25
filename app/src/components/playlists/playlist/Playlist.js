@@ -7,9 +7,9 @@ function Playlist({ images, name, description, isSongAdded }) {
     return (
         <div className="Playlist">
             <img src={images[0] ? images[0].url : placeholderImage} />
-            <div className="playlist-body">
+            <div className="playlist-info">
                 <h3 className="playlist-title">{name}</h3>
-                <p className="playlist-body">{description}</p>
+                <p className="playlist-description">{description}</p>
             </div>
         </div>
     );

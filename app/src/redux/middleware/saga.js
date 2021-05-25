@@ -45,7 +45,7 @@ function* fetchPlaylistSongs(action) {
             accessToken,
         });
         console.log(data);
-        const { songs } = parser.parsePlaylist({ data });
+        const { songs } = parser.parsePlaylistToSongs({ data });
         yield put(getCurrentPlaylistSongs.success({ songs }));
     } catch (err) {
         console.log(err.response);

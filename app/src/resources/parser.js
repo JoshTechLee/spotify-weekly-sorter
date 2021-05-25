@@ -10,8 +10,13 @@ export const parseUserPlaylists = ({ userPlaylists, otherPlaylists, data, uri })
     };
 };
 
-export const parsePlaylist = ({ data }) => {
-    return {
-        songs: data.tracks.items,
-    };
+export const parsePlaylistToSongs = ({ data }) => ({ songs: data.tracks.items });
+
+export const parseMilisecondsToStandard = ({ ms }) => {
+    const seconds = Math.floor(ms / 1000)
+        .toString()
+        .slice(0, 2);
+    const minutes = Math.floor(ms / 60000);
+    console.log(seconds, minutes);
+    return `${minutes}:${seconds}`;
 };
