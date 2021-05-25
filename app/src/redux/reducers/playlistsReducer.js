@@ -1,6 +1,8 @@
 import { ActionTypes } from '../../resources/constants';
 
 const initialState = {
+    playlistFilter: '',
+    visiblePlaylists: [],
     userPlaylists: [],
     otherPlaylists: [],
     areMorePlaylists: true,

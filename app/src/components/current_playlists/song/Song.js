@@ -4,11 +4,16 @@ import { IMAGE_PLACEHOLDER } from '../../../resources/constants';
 import { parseMilisecondsToStandard } from '../../../resources/parser';
 
 function Song({ track: { name, artists, duration_ms, album }, index }) {
-    const placeholderImage =
-        'https://www.downloadclipart.net/large/24191-white-music-notes-design.png';
+    const [showTriangle, setShowTriangle] = useState(false);
     return (
-        <div className="Song">
-            <span className="song-extra-info song-index">{index}</span>
+        <div
+            className="Song"
+            onMouseEnter={() => setShowTriangle(true)}
+            onMouseLeave={() => setShowTriangle(false)}
+        >
+            <span className="song-extra-info song-index">
+                {showTriangle ? <div className={'triangle'}></div> : index}
+            </span>
             <img src={album.images[0] ? album.images[0].url : IMAGE_PLACEHOLDER} />
             <span className="song-info-container">
                 <h4 className="song-info song-title">{name}</h4>

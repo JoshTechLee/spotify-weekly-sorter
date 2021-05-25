@@ -3,7 +3,7 @@
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 100px auto 50px;
+    grid-template-rows: 70px auto 50px;
     grid-template-areas:
         'header-1 header-2'
         'body-1 body-2'
@@ -17,8 +17,6 @@
     /* playlist layout */
     .playlists-header {
         grid-area: header-2;
-
-        background-color: blue;
     }
     .playlists-body {
         grid-area: body-2;

@@ -42,7 +42,21 @@
         }
     }
     .song-index {
-        padding-right: 4px;
+        padding: 4px;
         font-size: 12px;
+    }
+    .triangle {
+        $triangle-size: 6px;
+        margin: 10px 13px;
+        width: 0;
+        height: 0;
+        border-top: $triangle-size solid transparent;
+        border-bottom: $triangle-size solid transparent;
+        border-left: #{$triangle-size * 1.5} solid white;
+    }
+    &:hover {
+        background-color: rgb(40, 40, 40);
+        transition: background-color 0.2s;
+        cursor: pointer;
     }
 }
