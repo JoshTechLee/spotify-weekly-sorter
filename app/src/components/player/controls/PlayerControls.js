@@ -17,6 +17,7 @@ const PlayerControls = ({ seek, isPlaying }) => {
             <div className="player-progress-bar">
                 <ProgressBar seek={seek} />
             </div>
+            <div className="player-progress">25:50</div>
         </div>
     );
 };

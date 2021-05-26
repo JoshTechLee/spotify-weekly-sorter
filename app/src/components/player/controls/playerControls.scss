@@ -1,3 +1,5 @@
+@import '../../../resources/theme.scss';
+
 .player-controls-container {
     height: 100%;
     display: flex;
@@ -17,5 +19,8 @@
     .player-progress-bar {
         flex-grow: 1;
         margin: 20px;
+    }
+    .player-progress {
+        font-size: $item-data-size;
     }
 }

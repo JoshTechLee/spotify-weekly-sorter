@@ -1,3 +1,5 @@
+@import '../../../resources/theme.scss';
+
 .Song {
     display: grid;
     grid-template-columns: [index] 20px [image] 50px [info] auto [album] 100px [duration] 50px;
@@ -24,11 +26,11 @@
         }
 
         .song-artists {
-            font-size: 13px;
+            font-size: $item-data-size;
         }
     }
     .song-extra-info {
-        font-size: 13px;
+        font-size: $item-data-size;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -43,7 +45,7 @@
     }
     .song-index {
         padding: 4px;
-        font-size: 12px;
+        font-size: $item-description-size;
     }
     .triangle {
         $triangle-size: 6px;
@@ -55,7 +57,7 @@
         border-left: #{$triangle-size * 1.5} solid white;
     }
     &:hover {
-        background-color: rgb(40, 40, 40);
+        background-color: $foreground;
         transition: background-color 0.2s;
         cursor: pointer;
     }

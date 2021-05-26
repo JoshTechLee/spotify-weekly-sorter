@@ -1,3 +1,5 @@
+@import '../../../resources/theme.scss';
+
 $image-size: 100px;
 
 .Playlist {
@@ -5,30 +7,29 @@ $image-size: 100px;
     margin: 5px;
     border-style: solid;
     border-width: 1px;
-    // border-color: rgb(0, 200, 0);
-    border-color: black;
-    background-color: rgb(20, 20, 20);
+    border-color: $highlight;
+    background-color: $middle-ground;
     img {
         width: 100%;
     }
     .no-image {
         width: $image-size;
         height: $image-size;
-        background-color: black;
+        background-color: $background;
     }
     .playlist-info {
         display: flex;
         flex-direction: column;
         justify-content: center;
         .playlist-title {
-            font-size: 15px;
+            font-size: $item-title-size;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
             margin: 5px 0px;
         }
         .playlist-description {
-            font-size: 12px;
+            font-size: $item-description-size;
             margin: 0px;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -40,7 +41,7 @@ $image-size: 100px;
         }
     }
     &:hover {
-        background-color: rgb(40, 40, 40);
+        background-color: $foreground;
         transition: background-color 0.2s;
         cursor: pointer;
     }

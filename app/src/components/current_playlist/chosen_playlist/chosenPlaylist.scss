@@ -1,3 +1,5 @@
+@import '../../../resources/theme.scss';
+
 .chosenPlaylist-song-container {
     margin: 0px 10px;
     height: 100%;
@@ -30,11 +32,11 @@
             text-overflow: ellipsis;
         }
         .song-title {
-            font-size: 15px;
+            font-size: $item-title-size;
         }
 
         .song-artist {
-            font-size: 12px;
+            font-size: $item-description-size;
         }
     }
 }

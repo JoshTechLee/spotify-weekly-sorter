@@ -1,3 +1,5 @@
+@import '../resources/theme.scss';
+
 .grid-container {
     height: 100%;
     width: 100%;
@@ -10,12 +12,9 @@
         'footer footer';
 
     /* TESTING */
-    background-color: black;
+    background-color: $background;
 }
 
-.playlists-grid-header {
-    grid-area: header-2;
-}
 .playlists-grid-body {
     grid-area: body-2;
     overflow-y: hidden;
@@ -25,15 +24,18 @@
 .songs-grid-header {
     grid-area: header-1;
 
-    background-color: black;
+    // background-color: $background;
+    background-image: linear-gradient(black, $middle-ground);
 }
 .songs-grid-body {
     grid-area: body-1;
     overflow-y: scroll;
     direction: rtl;
-    background-color: rgb(20, 20, 20);
+    background-color: $middle-ground;
 }
 
 .player-grid-body {
     grid-area: footer;
+
+    border-top: 1px solid $foreground;
 }
