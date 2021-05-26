@@ -18,6 +18,7 @@ function App() {
 
     useEffect(() => {
         if (!accessToken || !userData.spotifyId) initializeApp();
+        // initializeSpotifySDK();
     }, [dispatch]);
 
     const initializeApp = () => {
@@ -42,9 +43,17 @@ function App() {
         }
     };
 
-    // const fetchPlaylists = () => {
-    //     dispatch(actions.)
-    // }
+    // const initializeSpotifySDK = () => {
+    //     window.onSpotifyWebPlaybackSDKReady = () => {
+    //         var player = new Spotify.Player({
+    //             name: 'What what',
+    //             getOAuthToken: (callback) => {
+    //                 callback(accessToken);
+    //             },
+    //             volume: 0.5,
+    //         });
+    //     };
+    // };
 
     const testButton1 = () => {
         dispatch(getUserPlaylists.request());
