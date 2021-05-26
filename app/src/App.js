@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import { SERVER_URL } from './resources/constants';
 import { getAccessToken, getUserData } from './redux/actions/initializationActions';
-import { getUserPlaylists } from './redux/actions/playlistActions';
+import { getUserPlaylists, setPlaylistSearch } from './redux/actions/playlistActions';
 import ipc from './electron/ipcRenderer';
 import MainPage from './components/MainPage';
 
@@ -56,7 +56,7 @@ function App() {
     // };
 
     const testButton1 = () => {
-        dispatch(getUserPlaylists.request());
+        dispatch(setPlaylistSearch.filter());
         // dispatch(getAccessToken.request({ spotifyId: userData.spotifyId }));
     };
 

@@ -16,6 +16,8 @@ export const playlistsReducer = (state = initialState, { type, payload }) => {
                 areMorePlaylists: payload.areMorePlaylists,
             };
         case ActionTypes.SET_PLAYLIST_SEARCH.FILTER: {
+            console.log('we here boys');
+            return initialState;
             return {
                 ...state,
                 search: payload.search,

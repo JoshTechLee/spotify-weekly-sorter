@@ -1,7 +1,10 @@
 import './songs.scss';
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getCurrentPlaylistSongs } from '../../redux/actions/playlistActions';
+import {
+    getCurrentPlaylistSongs,
+    setCurrentPlaylistSongs,
+} from '../../redux/actions/playlistActions';
 import Song from './song/Song';
 
 function Songs() {
@@ -14,7 +17,10 @@ function Songs() {
     });
 
     const clickable = () => {
+        dispatch(setCurrentPlaylistSongs.clear());
         dispatch(getCurrentPlaylistSongs.request());
+        console.log('clickable: songs');
+        console.log(songs);
     };
 
     const clickable2 = () => {
@@ -23,10 +29,11 @@ function Songs() {
     return (
         <ul className="Songs">
             <li>
-                <button onClick={clickable2}>something</button>
+                <button onClick={clickable}>something</button>
+                <button onClick={clickable2}>something2</button>
             </li>
             {songs.map((song, index) => (
-                <li key={song.track.id}>
+                <li key={song.id}>
                     <Song {...song} index={index + 1} />
                 </li>
             ))}

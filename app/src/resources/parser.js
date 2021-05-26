@@ -12,11 +12,11 @@ export const parseUserPlaylists = ({ userPlaylists, otherPlaylists, data, uri })
     };
 };
 
-export const parsePlaylistToSongs = ({ data }) =>
-    data.tracks.items.map(({ track }) => parseTrack({ track }));
-
-export const parseArtists = ({ artists }) =>
-    artists.reduce((result, artist) => `${result}, ${artist}`);
+export const parsePlaylistToSongs = ({ data }) => {
+    console.log(' we parsing now');
+    console.log(data);
+    return data.tracks.items.map(({ track }) => parseTrack({ track }));
+};
 
 export const parseTrack = ({ track }) => ({
     name: track.name,
@@ -24,7 +24,10 @@ export const parseTrack = ({ track }) => ({
     duration: track.duration_ms,
     album: track.album.name,
     image: track.album.images[0] ? track.album.images[0].url : IMAGE_PLACEHOLDER,
+    id: track.id,
 });
+
+export const parseArtists = ({ artists }) => artists.map((artist) => artist.name).join(', ');
 
 export const parseMilisecondsToStandard = ({ ms }) => {
     const seconds = Math.floor(ms / 1000)

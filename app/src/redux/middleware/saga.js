@@ -4,7 +4,19 @@ import * as requests from '../../resources/requests';
 import * as parser from '../../resources/parser';
 import { ActionTypes } from '../../resources/constants';
 import { getAccessToken } from '../actions/initializationActions';
-import { getCurrentPlaylistSongs, getUserPlaylists } from '../actions/playlistActions';
+import {
+    getCurrentPlaylistSongs,
+    setCurrentPlaylistSongs,
+    getUserPlaylists,
+} from '../actions/playlistActions';
+
+const commonActions = {
+    fetch: 'fetch',
+    request: 'request',
+    success: 'success',
+    failure: 'failure',
+    clear: 'clear',
+};
 
 function* fetchUserPlaylists(action) {
     try {
@@ -17,7 +29,6 @@ function* fetchUserPlaylists(action) {
                 otherPlaylists: [],
                 offset: 0,
             }));
-        console.log(areMorePlaylists);
         while (areMorePlaylists) {
             const { data } = yield call(requests.fetchUserPlaylists, { offset, accessToken });
             ({ userPlaylists, otherPlaylists, areMorePlaylists } = parser.parseUserPlaylists({
@@ -36,7 +47,7 @@ function* fetchUserPlaylists(action) {
     }
 }
 
-function* fetchPlaylistSongs(action) {
+function* fetchCurrentPlaylistSongs(action) {
     try {
         const accessToken = yield select((state) => state.accessToken.code);
         const { data } = yield call(requests.fetchPlaylist, {
@@ -44,14 +55,16 @@ function* fetchPlaylistSongs(action) {
             playlistId: '37i9dQZEVXcUucvBO9dizK',
             accessToken,
         });
-        console.log(data);
-        const { songs } = parser.parsePlaylistToSongs({ data });
-        console.log(songs);
+        const songs = parser.parsePlaylistToSongs({ data });
         yield put(getCurrentPlaylistSongs.success({ songs }));
     } catch (err) {
-        console.log(err.response);
-        console.log(err.response.data.error);
-        yield refreshAccessTokenAndRetry(err, () => fetchUserPlaylists(action));
+        // try all options to resolve error status
+        console.log('[fetchCurrentPlaylistSongs] catch block');
+        try {
+            yield refreshAccessTokenAndRetry(err, () => fetchUserPlaylists(action));
+        } catch {
+            console.log('oh fuck');
+        }
     }
 }
 
@@ -65,6 +78,8 @@ function* fetchAccessToken(action) {
 }
 
 function* refreshAccessTokenAndRetry(err, lastRequest) {
+    console.log('[refreshAccessTokenAndRetry]  error message data');
+    console.log(err.response);
     try {
         const { status, message } = {
             status: err.response.data.error.status,
@@ -86,9 +101,9 @@ function* refreshAccessTokenAndRetry(err, lastRequest) {
 }
 
 function* listeners() {
-    yield takeEvery(ActionTypes.GET_ACCESS_TOKEN.REQUEST, fetchAccessToken);
+    yield takeEvery(ActionTypes.GET_ACCESS_TOKEN.REQUEST, fetchAccessToken('commonActions'));
     yield takeLatest(ActionTypes.GET_USER_PLAYLISTS.REQUEST, fetchUserPlaylists);
-    yield takeLatest(ActionTypes.GET_CURRENT_PLAYLIST_SONGS.REQUEST, fetchPlaylistSongs);
+    yield takeLatest(ActionTypes.GET_CURRENT_PLAYLIST_SONGS.REQUEST, fetchCurrentPlaylistSongs);
 }
 
 export default listeners;

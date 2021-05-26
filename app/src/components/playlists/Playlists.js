@@ -18,6 +18,7 @@ function Playlists() {
 
     useEffect(() => {
         if (areMorePlaylists && accessToken) {
+            console.log('we here');
             dispatch(getUserPlaylists.request());
         }
     }, [dispatch]);
