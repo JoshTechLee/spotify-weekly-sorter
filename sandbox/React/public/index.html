@@ -28,6 +28,20 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <script>
+      window.onSpotifyWebPlaybackSDKReady = () => {
+        const token = 'BQBK5woYZMxv9REtWJsjwz4GahI4Yvb7jjtOPE-0G97F9Eq4pY2hqc64D9KF_Hnzk3OR8U9p4FV_5zVPEPo4TTQ60wL4tfzQ4szCnn3yUGEop8WlGlhb8Sr6qtyn6TiausPyiRU86ug8ecATs3_9Rh147oDDTyGYZRHFsAR1j_aLtfZb9eAD_Do';
+        const player = new Spotify.Player({
+          name: 'Web Playback SDK Quick Start Player',
+          getOAuthToken: cb => { cb(token); }
+        });
+        player.addListener('initialization_error', (error) => { console.error(error); });
+        player.addListener('authentication_error', ({ message }) => { console.error(message); });
+        player.addListener('account_error', ({ message }) => { console.error(message); });
+        player.addListener('playback_error', ({ message }) => { console.error(message); });
+      }
+                </script>
     <div id="root"></div>
     <!--
       This HTML file is a template.

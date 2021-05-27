@@ -41,10 +41,7 @@ $image-size: 100px;
         }
     }
     &:hover {
-        // background-color: $foreground;
-        // transition: background-color 0.2s;
         cursor: pointer;
-
         border-color: $highlight;
         transition: border-color 0.1s;
     }

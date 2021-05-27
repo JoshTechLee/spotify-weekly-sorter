@@ -1,7 +1,7 @@
 .Playlists-container {
     height: 100%;
     display: grid;
-    grid-template-rows: [header] 60px [body] auto;
+    grid-template-rows: [header] 50px [body] auto;
     .Playlists {
         margin: 0px;
         padding: 0px;
@@ -20,9 +20,9 @@
         align-items: center;
         .input-container {
             width: 100%;
-            height: 45px;
+            height: 35px;
             margin: 20px;
-            background-color: white;
+            background-color: rgb(100, 0, 100);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -31,13 +31,13 @@
                 height: 100%;
                 width: 100%;
                 margin: 20px;
-                font-size: 30px;
+                font-size: 25px;
                 outline: none;
                 border-top-style: hidden;
                 border-right-style: hidden;
                 border-left-style: hidden;
                 border-bottom-style: hidden;
-                color: black;
+                color: white;
                 background-color: rgba(0, 0, 0, 0);
             }
         }

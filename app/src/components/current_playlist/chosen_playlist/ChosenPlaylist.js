@@ -1,6 +1,5 @@
 import './chosenPlaylist.scss';
 import React from 'react';
-import { IMAGE_PLACEHOLDER } from '../../../resources/constants';
 
 const ChosenPlaylist = ({ title, artists }) => {
     const image = 'https://i.scdn.co/image/89b92c6b59131776c0cd8e5df46301ffcf36ed69';

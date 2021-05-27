@@ -1,6 +1,5 @@
 import './song.scss';
 import React, { useState } from 'react';
-import { IMAGE_PLACEHOLDER } from '../../../resources/constants';
 import { parseMilisecondsToStandard } from '../../../resources/parser';
 
 function Song({ name, artists, album, duration, image, index }) {

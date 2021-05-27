@@ -37,11 +37,12 @@
           getOAuthToken: cb => { cb(token); }
         });
 
-//   // Error handling
-//   player.addListener('initialization_error', (error) => { console.error(error); });
-//   player.addListener('authentication_error', ({ message }) => { console.error(message); });
-//   player.addListener('account_error', ({ message }) => { console.error(message); });
-//   player.addListener('playback_error', ({ message }) => { console.error(message); });
+
+  // Error handling
+  player.addListener('initialization_error', (error) => { console.error(error); });
+  player.addListener('authentication_error', ({ message }) => { console.error(message); });
+  player.addListener('account_error', ({ message }) => { console.error(message); });
+  player.addListener('playback_error', ({ message }) => { console.error(message); });
 
 //   // Playback status updates
 //   player.addListener('player_state_changed', state => { console.log(state); });

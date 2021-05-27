@@ -6,17 +6,17 @@ import { ActionTypes } from '../../resources/constants';
 import { getAccessToken } from '../actions/initializationActions';
 import {
     getCurrentPlaylistSongs,
-    setCurrentPlaylistSongs,
+    // setCurrentPlaylistSongs,
     getUserPlaylists,
 } from '../actions/playlistActions';
 
-const commonActions = {
-    fetch: 'fetch',
-    request: 'request',
-    success: 'success',
-    failure: 'failure',
-    clear: 'clear',
-};
+// const commonActions = {
+//     fetch: 'fetch',
+//     request: 'request',
+//     success: 'success',
+//     failure: 'failure',
+//     clear: 'clear',
+// };
 
 function* fetchUserPlaylists(action) {
     try {

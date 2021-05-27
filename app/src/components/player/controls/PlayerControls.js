@@ -2,7 +2,7 @@ import './playerControls.scss';
 import React from 'react';
 import ProgressBar from './progress_bar/ProgressBar';
 import PlayButton from './play_button/PlayButton';
-import PauseButton from './pause_button/PauseButton';
+// import PauseButton from './pause_button/PauseButton';
 import SkipButton from './skip_button/SkipButton';
 
 const PlayerControls = ({ seek, isPlaying }) => {

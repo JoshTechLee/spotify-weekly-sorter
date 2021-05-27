@@ -2,7 +2,7 @@ import './player.scss';
 import React from 'react';
 import Song from './song/PlayerSong';
 import Controls from './controls/PlayerControls';
-import Settings from './settings/Settings';
+// import Settings from './settings/Settings';
 
 const Player = () => {
     const tempSong = {

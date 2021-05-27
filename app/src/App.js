@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import queryString from 'query-string';
-import axios from 'axios';
 
 import { SERVER_URL } from './resources/constants';
 import { getAccessToken, getUserData } from './redux/actions/initializationActions';
-import { getUserPlaylists, setPlaylistSearch } from './redux/actions/playlistActions';
+import { setPlaylistSearch } from './redux/actions/playlistActions';
 import ipc from './electron/ipcRenderer';
 import MainPage from './components/MainPage';
 

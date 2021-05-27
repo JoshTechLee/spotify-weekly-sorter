@@ -3,11 +3,10 @@ const { app, BrowserWindow } = require('electron');
 const isDev = require('electron-is-dev');
 const path = require('path');
 const { DEFAULTS } = require('./constants');
-const Store = require('electron-store');
 const { ipcMain } = require('electron');
+const Store = require('electron-store');
 
 const store = new Store();
-
 ipcMain.on('GET_USER_DATA', (event, _) => {
     const userData = store.get('userData');
     console.log('[GET_USER_DATA]  ' + userData);
@@ -24,12 +23,14 @@ function createWindow() {
         width: DEFAULTS.width,
         height: DEFAULTS.height,
         webPreferences: {
+            plugins: true,
             nodeIntegration: true,
             contextIsolation: false,
             webSecurity: false,
             preload: path.join(__dirname, 'preload.js'),
         },
     });
+
     // win.loadFile(path.join(__dirname, '..', 'src', 'index.js'));
     win.loadURL(
         isDev
@@ -42,12 +43,21 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+    // createWindow();
+});
+
+app.on('widevine-ready', () => {
+    console.log('widevine-ready');
     createWindow();
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
             createWindow();
         }
     });
+});
+
+app.on('widevine-error', () => {
+    console.log('widevine-error');
 });
 
 app.on('window-all-closed', () => {
