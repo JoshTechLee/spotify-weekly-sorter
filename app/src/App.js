@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import queryString from 'query-string';
 
@@ -16,6 +16,8 @@ function App() {
         accessToken: state.accessToken.code,
         userData: state.userData,
     }));
+
+    const [player, setPlayer] = useState();
 
     useEffect(() => {
         if (!accessToken || !userData.spotifyId) initializeApp();
@@ -48,20 +50,22 @@ function App() {
         loadSpotifyScript(() => {
             window.onSpotifyWebPlaybackSDKReady = () => {
                 console.log("IT'S WORKING!!");
-                let { Player } = window.Spotify;
-                const player = new Player({
+                const player = new window.Spotify.Player({
                     name: 'React Spotify Player',
                     getOAuthToken: (cb) => {
                         cb(
-                            'BQCwT1le0znFkkTDOkOrHAAD89WAd_oeBdRasWZV2vr4aT6QmAxbjUZXvGX9hXtcZqzOvdLp8EksZLqzITf5HrwIP-Ltd-KX4LeIfqQjVSARKwJ0XePeG8AGxY9IBNaet6A_ErPykmEIPqlcTTc1KQztP4XfEvwZ2RuVbaCfgylVlIN4DuM_ESlTrqIlmeLS_vJnsaF6sqc415d8PA'
+                            'BQDmNHItpcSkFTuhbCaAf_fGQUHbxD6HfIhraBCpG29OkpwA-v3YbZv10VVDuYg6VdIWbjBmlxTXS9yHvjRr4IH5oqAVwLrhsaDy4AnIhk-pUloNfMyZSvsll-27ggxwKE4opupjyAQ6DZKXgYeSyNX8CsnF0AGYfbgDw4szJEdVVfphJGgkcRnmteBvYeInodeH8tt-PNA_t3rteg'
                         );
                     },
+                    volume: 1,
                 });
                 player.addListener('initialization_error', ({ message }) => {
                     console.error(message);
                 });
                 player.addListener('authentication_error', ({ message }) => {
+                    console.log('uhOh sdfsdfsdf');
                     console.error(message);
+                    dispatch(getAccessToken.request({ spotifyId: userData.spotifyId }));
                 });
                 player.addListener('account_error', ({ message }) => {
                     console.error(message);
@@ -69,7 +73,18 @@ function App() {
                 player.addListener('playback_error', ({ message }) => {
                     console.error(message);
                 });
-                player.connect();
+
+                player.addListener('ready', ({ device_id }) => {
+                    console.log('Connected with Device ID', device_id);
+                });
+                player.connect().then((success) => {
+                    if (success) {
+                        console.log('player connected');
+                        console.log(player);
+
+                        setPlayer(player);
+                    }
+                });
             };
         });
     };
@@ -80,10 +95,14 @@ function App() {
     };
 
     const testButton2 = () => {
-        dispatch({ type: 'RESET' });
+        console.log(player);
+        player.getCurrentState().then((state) => {
+            console.log(state);
+        });
+        // dispatch({ type: 'RESET' });
     };
 
-    return <MainPage />;
+    // return <MainPage />;
 
     return (
         <div>

@@ -7,7 +7,8 @@ const { getSpotifyRefreshToken, getSpotifyAccessToken } = require('../../helpers
 const { getSpotifyUserProfile } = require('../../helpers/requests/api');
 const User = require('../../model/user');
 
-const spotify_scope = 'user-read-private user-read-email playlist-read-private streaming';
+const spotify_scope =
+    'streaming user-read-private user-read-email playlist-read-private user-read-birthdate';
 
 router.get('/login', (_, res) => {
     res.redirect(

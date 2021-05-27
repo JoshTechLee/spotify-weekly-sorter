@@ -101,9 +101,9 @@ function* refreshAccessTokenAndRetry(err, lastRequest) {
 }
 
 function* listeners() {
-    yield takeEvery(ActionTypes.GET_ACCESS_TOKEN.REQUEST, fetchAccessToken('commonActions'));
+    yield takeEvery(ActionTypes.GET_ACCESS_TOKEN.REQUEST, fetchAccessToken);
     yield takeLatest(ActionTypes.GET_USER_PLAYLISTS.REQUEST, fetchUserPlaylists);
-    yield takeLatest(ActionTypes.GET_CURRENT_PLAYLIST_SONGS.REQUEST, fetchCurrentPlaylistSongs);
+    yield takeEvery(ActionTypes.GET_CURRENT_PLAYLIST_SONGS.REQUEST, fetchCurrentPlaylistSongs);
 }
 
 export default listeners;
