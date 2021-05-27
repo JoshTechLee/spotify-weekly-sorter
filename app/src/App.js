@@ -5,7 +5,9 @@ import queryString from 'query-string';
 import { SERVER_URL } from './resources/constants';
 import { getAccessToken, getUserData } from './redux/actions/initializationActions';
 import { setPlaylistSearch } from './redux/actions/playlistActions';
+import { loadSpotifyScript } from './resources/scripts';
 import ipc from './electron/ipcRenderer';
+
 import MainPage from './components/MainPage';
 
 function App() {
@@ -17,7 +19,7 @@ function App() {
 
     useEffect(() => {
         if (!accessToken || !userData.spotifyId) initializeApp();
-        // initializeSpotifySDK();
+        if (accessToken) initializeSpotifySDK();
     }, [dispatch]);
 
     const initializeApp = () => {
@@ -42,17 +44,35 @@ function App() {
         }
     };
 
-    // const initializeSpotifySDK = () => {
-    //     window.onSpotifyWebPlaybackSDKReady = () => {
-    //         var player = new Spotify.Player({
-    //             name: 'What what',
-    //             getOAuthToken: (callback) => {
-    //                 callback(accessToken);
-    //             },
-    //             volume: 0.5,
-    //         });
-    //     };
-    // };
+    const initializeSpotifySDK = () => {
+        loadSpotifyScript(() => {
+            window.onSpotifyWebPlaybackSDKReady = () => {
+                console.log("IT'S WORKING!!");
+                let { Player } = window.Spotify;
+                const player = new Player({
+                    name: 'React Spotify Player',
+                    getOAuthToken: (cb) => {
+                        cb(
+                            'BQCwT1le0znFkkTDOkOrHAAD89WAd_oeBdRasWZV2vr4aT6QmAxbjUZXvGX9hXtcZqzOvdLp8EksZLqzITf5HrwIP-Ltd-KX4LeIfqQjVSARKwJ0XePeG8AGxY9IBNaet6A_ErPykmEIPqlcTTc1KQztP4XfEvwZ2RuVbaCfgylVlIN4DuM_ESlTrqIlmeLS_vJnsaF6sqc415d8PA'
+                        );
+                    },
+                });
+                player.addListener('initialization_error', ({ message }) => {
+                    console.error(message);
+                });
+                player.addListener('authentication_error', ({ message }) => {
+                    console.error(message);
+                });
+                player.addListener('account_error', ({ message }) => {
+                    console.error(message);
+                });
+                player.addListener('playback_error', ({ message }) => {
+                    console.error(message);
+                });
+                player.connect();
+            };
+        });
+    };
 
     const testButton1 = () => {
         dispatch(setPlaylistSearch.filter());
