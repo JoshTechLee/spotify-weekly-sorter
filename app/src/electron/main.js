@@ -1,27 +1,22 @@
 require('dotenv').config();
-const { app, BrowserWindow } = require('electron');
+const { app, screen, BrowserWindow, globalShortcut } = require('electron');
 const isDev = require('electron-is-dev');
 const path = require('path');
 const { DEFAULTS } = require('./constants');
-const { ipcMain } = require('electron');
-const Store = require('electron-store');
+const ipc = require('./ipc/ipcMain');
 
-const store = new Store();
-ipcMain.on('GET_USER_DATA', (event, _) => {
-    const userData = store.get('userData');
-    console.log('[GET_USER_DATA]  ' + userData);
-    event.reply('GET_USER_DATA', userData);
-});
+ipc.run();
 
-ipcMain.on('SAVE_USER_DATA', (_, data) => {
-    console.log('[SAVE_USER_DATA]  ' + data);
-    store.set('userData', data);
-});
-
-function createWindow() {
+const createWindow = () => {
+    const screenWidth = screen.getPrimaryDisplay().bounds.width;
+    const screenHeight = screen.getPrimaryDisplay().bounds.height;
     const win = new BrowserWindow({
         width: DEFAULTS.width,
         height: DEFAULTS.height,
+        // frame: false,
+        // show: false,
+        // x: screenWidth - DEFAULTS.width,
+        // y: screenHeight - DEFAULTS.height,
         webPreferences: {
             plugins: true,
             nodeIntegration: true,
@@ -31,7 +26,21 @@ function createWindow() {
         },
     });
 
-    // win.loadFile(path.join(__dirname, '..', 'src', 'index.js'));
+    win.on('close', (event) => {
+        event.preventDefault();
+        console.log('we are closing');
+        win.hide();
+    });
+
+    win.on('focus', () => {
+        console.log('we are focusing');
+        win.show();
+    });
+
+    win.on('show', () => {
+        console.log('we should be showing');
+    });
+
     win.loadURL(
         isDev
             ? process.env.REACT_APP_DEV_CLIENT_ADDRESS
@@ -40,15 +49,26 @@ function createWindow() {
     if (isDev) {
         win.webContents.openDevTools({ mode: 'detach' });
     }
-}
+
+    const globalResultTest = globalShortcut.register('Ctrl+Shift+Alt+X', () => {
+        console.log('global key binding worked!');
+    });
+    if (!globalResultTest) {
+        console.log('global key binding failed :(');
+    }
+};
 
 app.whenReady().then(() => {
-    // createWindow();
+    createWindow();
+});
+
+app.on('browser-window-focus', () => {
+    console.log('we focused boys');
 });
 
 app.on('widevine-ready', () => {
     console.log('widevine-ready');
-    createWindow();
+    loadWindow();
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
             createWindow();
@@ -56,7 +76,8 @@ app.on('widevine-ready', () => {
     });
 });
 
-app.on('widevine-error', () => {
+app.on('widevine-error', (err) => {
+    console.error(err);
     console.log('widevine-error');
 });
 

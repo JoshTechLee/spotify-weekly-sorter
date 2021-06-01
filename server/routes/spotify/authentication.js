@@ -7,8 +7,7 @@ const { getSpotifyRefreshToken, getSpotifyAccessToken } = require('../../helpers
 const { getSpotifyUserProfile } = require('../../helpers/requests/api');
 const User = require('../../model/user');
 
-const spotify_scope =
-    'streaming user-read-private user-read-email playlist-read-private user-read-birthdate';
+const spotify_scope = 'streaming user-read-private user-read-email playlist-read-private';
 
 router.get('/login', (_, res) => {
     res.redirect(
@@ -50,10 +49,7 @@ router.get('/callback', async (req, res) => {
 });
 
 router.get('/token', async (req, res) => {
-    console.log(req.query);
-    console.log(req.body);
     const spotify_id = req.query.spotify_id;
-    console.log(spotify_id);
     const refresh_token = await User.findById(spotify_id, 'refresh_token')
         .limit(1)
         .then((data) => {

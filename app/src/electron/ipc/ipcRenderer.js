@@ -11,9 +11,14 @@ const setUserData = (data) => {
     ipcRenderer.send('SAVE_USER_DATA', data);
 };
 
+const setSpotifyRemote = (data) => {
+    ipcRenderer.send('TRY_REMOTE', data);
+};
+
 const ipc = {
     getUserData,
     setUserData,
+    setSpotifyRemote,
 };
 
 export default ipc;
