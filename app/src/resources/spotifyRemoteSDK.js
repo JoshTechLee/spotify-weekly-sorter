@@ -1,4 +1,5 @@
 import ipc from '../electron/ipc/ipcRenderer';
+import { fetchAccessToken, startRemoteSDK } from './requests';
 
 const loadSpotifyScript = (callback) => {
     const existingScript = document.getElementById('spotify');
@@ -15,7 +16,8 @@ const loadSpotifyScript = (callback) => {
 };
 
 export const activateSpotifySDK = ({
-    accessToken,
+    // accessToken,
+    spotifyId,
     initializationErrorAction,
     authenticationErrorAction,
     accountErrorAction,
@@ -25,10 +27,14 @@ export const activateSpotifySDK = ({
 }) => {
     loadSpotifyScript(() => {
         window.onSpotifyWebPlaybackSDKReady = () => {
+            let accessToken = '';
             const spotifyPlayer = new window.Spotify.Player({
                 name: 'React Spotify Player',
                 getOAuthToken: (callback) => {
-                    callback(accessToken);
+                    fetchAccessToken({ spotifyId }).then(({ data }) => {
+                        accessToken = data.access_token;
+                        callback(data.access_token);
+                    });
                 },
                 volume: 1,
             });
@@ -44,20 +50,25 @@ export const activateSpotifySDK = ({
                 console.error(message);
                 if (accountErrorAction) accountErrorAction();
             });
-            spotifyPlayer.addListener('playback_error', ({ message }) => {
-                console.error(message);
-                if (playbackErrorAction) playbackErrorAction();
+            spotifyPlayer.addListener('playback_error', (err) => {
+                console.log('uh oh');
+                console.error(err);
+                // if (playbackErrorAction) playbackErrorAction();
             });
-            // spotifyPlayer.addListener('ready', ({ device_id }) => {
-            //     console.log('Connected with Device ID', device_id);
-            //     getDeviceIdAction({ device_id });
-            // });
-            // spotifyPlayer.connect().then((success) => {
-            //     if (success) {
-            //         console.log('spotify connection successful');
-            //         getPlayerAction({ spotifyPlayer });
-            //     }
-            // });
+            spotifyPlayer.addListener('ready', ({ device_id }) => {
+                console.log('Connected with Device ID', device_id);
+                console.log(accessToken);
+                startRemoteSDK({ deviceId: device_id, accessToken })
+                    .then((data) => console.log(data))
+                    .catch((err) => console.log(err.response));
+                // getDeviceIdAction({ device_id });
+            });
+            spotifyPlayer.connect().then((success) => {
+                if (success) {
+                    console.log('spotify connection successful');
+                    // getPlayerAction({ spotifyPlayer });
+                }
+            });
         };
     });
 };

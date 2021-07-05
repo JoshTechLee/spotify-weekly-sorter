@@ -9,7 +9,7 @@ import Song from './song/Song';
 
 function Songs() {
     const dispatch = useDispatch();
-    const { songs } = useSelector((state) => {
+    const { songs, accessToken } = useSelector((state) => {
         return {
             songs: state.currentPlaylist.songs,
             accessToken: state.accessToken.code,
@@ -21,6 +21,7 @@ function Songs() {
         dispatch(getCurrentPlaylistSongs.request());
         console.log('clickable: songs');
         console.log(songs);
+        console.log(accessToken);
     };
 
     const clickable2 = () => {

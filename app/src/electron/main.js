@@ -7,10 +7,12 @@ const ipc = require('./ipc/ipcMain');
 
 ipc.run();
 
+let win = null;
+
 const createWindow = () => {
     const screenWidth = screen.getPrimaryDisplay().bounds.width;
     const screenHeight = screen.getPrimaryDisplay().bounds.height;
-    const win = new BrowserWindow({
+    win = new BrowserWindow({
         width: DEFAULTS.width,
         height: DEFAULTS.height,
         // frame: false,
@@ -28,17 +30,12 @@ const createWindow = () => {
 
     win.on('close', (event) => {
         event.preventDefault();
-        console.log('we are closing');
-        win.hide();
-    });
-
-    win.on('focus', () => {
-        console.log('we are focusing');
-        win.show();
-    });
-
-    win.on('show', () => {
-        console.log('we should be showing');
+        if (app.quitting) {
+            app.exit();
+        } else {
+            console.log('we are closing');
+            win.hide();
+        }
     });
 
     win.loadURL(
@@ -58,8 +55,8 @@ const createWindow = () => {
     }
 };
 
-app.whenReady().then(() => {
-    createWindow();
+app.on('before-quit', () => {
+    app.quitting = true;
 });
 
 app.on('browser-window-focus', () => {
@@ -68,11 +65,12 @@ app.on('browser-window-focus', () => {
 
 app.on('widevine-ready', () => {
     console.log('widevine-ready');
-    loadWindow();
+    createWindow();
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
             createWindow();
         }
+        win.show();
     });
 });
 

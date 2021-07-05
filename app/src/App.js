@@ -20,23 +20,13 @@ function App() {
     const [player, setPlayer] = useState();
 
     useEffect(() => {
+        console.log(userData);
+        console.log(accessToken);
         if (!accessToken || !userData.spotifyId) initializeApp();
         if (accessToken) {
-            activateSpotifySDK({
-                accessToken,
-                // initializationErrorAction
-                // authenticationErrorAction: () => dispatch(getAccessToken.request({ spotifyId: userData.spotifyId })
-                // accountErrorAction,
-                // playbackErrorAction,
-                // getDeviceIdAction,
-                // getPlayerAction,
-            });
+            console.log('what what');
         }
-    }, [dispatch]);
-
-    setInterval(() => {
-        console.log('still running');
-    }, 1000);
+    }, [dispatch, accessToken]);
 
     const initializeApp = () => {
         const params = queryString.parse(window.location.search);
@@ -53,10 +43,23 @@ function App() {
         if (!userData.spotifyId && !accessToken && !paramAccessToken)
             window.location.href = SERVER_URL.LOGIN;
         if (userData.spotifyId) dispatch(getUserData.success({ userData }));
-        if (!accessToken && userData.spotfyId) {
+        if (!accessToken && userData.spotifyId) {
+            console.log('should have tried for token');
             dispatch(getAccessToken.request({ spotifyId: userData.spotifyId }));
         } else if (!accessToken && paramAccessToken) {
             dispatch(getAccessToken.success({ accessToken: paramAccessToken }));
+        }
+        if (userData.spotifyId) {
+            activateSpotifySDK({
+                accessToken,
+                spotifyId: userData.spotifyId,
+                // initializationErrorAction
+                // authenticationErrorAction: () => dispatch(getAccessToken.request({ spotifyId: userData.spotifyId })
+                // accountErrorAction,
+                // playbackErrorAction,
+                // getDeviceIdAction,
+                // getPlayerAction,
+            });
         }
     };
 

@@ -70,7 +70,9 @@ function* fetchCurrentPlaylistSongs(action) {
 
 function* fetchAccessToken(action) {
     try {
-        const { data } = yield call(requests.fetchAccessToken, { spotifyId: action.spotifyId });
+        const { data } = yield call(requests.fetchAccessToken, {
+            spotifyId: action.payload.spotifyId,
+        });
         yield put(getAccessToken.success({ accessToken: data.access_token }));
     } catch (err) {
         yield put(getAccessToken.failure({ error: 'Could not retrieve access token' }));

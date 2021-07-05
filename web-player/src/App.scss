@@ -1,0 +1,94 @@
+$background: black;
+$middle-ground: rgba(25, 0, 25, 0.5);
+$foreground: rgba(60, 0, 60, 0.5);
+$highlight: rgba(125, 0, 125, 0.5);
+
+$item-title-size: 15px;
+$item-description-size: 12px;
+$item-data-size: 13px;
+
+.App {
+    text-align: center;
+}
+
+.circle {
+    background-color: rgba(250, 250, 250, 0.5);
+    height: 150px;
+    width: 150px;
+    border-radius: 100%;
+}
+
+.circle-1 {
+    animation-delay: 0s;
+}
+
+.circle-2 {
+    animation-delay: 1s;
+}
+
+.circle-3 {
+    animation-delay: 2s;
+}
+
+.circle-4 {
+    animation-name: cycle-2;
+    animation-duration: 3s;
+    animation-direction: alternate-reverse;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+.pulse {
+    animation-name: cycle-1;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    margin: auto;
+}
+
+@keyframes cycle-1 {
+    0% {
+        background-color: white;
+        height: 0px;
+        width: 0px;
+    }
+    25% {
+        background-color: $highlight;
+        height: 200px;
+        width: 200px;
+    }
+    50% {
+        background-color: $foreground;
+        height: 300px;
+        width: 300px;
+    }
+    75% {
+        background-color: $middle-ground;
+        height: 400px;
+        width: 400px;
+    }
+    100% {
+        background-color: rgba(0, 0, 0, 0);
+        height: 500px;
+        width: 500px;
+    }
+}
+
+@keyframes cycle-2 {
+    0% {
+        height: 140px;
+        width: 140px;
+    }
+    100% {
+        height: 160px;
+        width: 160px;
+    }
+}
